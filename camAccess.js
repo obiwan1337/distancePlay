@@ -26,10 +26,10 @@ function init() {
     let video = document.createElement("video");
     video.setAttribute("id", "myOwnVideo");
     video.setAttribute("class", "video");
-    let legend = document.createElement("legend");
-    legend.innerText = "own Cam";
-    div.appendChild(legend);
-    div.appendChild(video);
+    //let legend: HTMLLegendElement = document.createElement("legend");
+    //legend.innerText = "own Cam"
+    //div.appendChild(legend);
+    //div.appendChild(video);
 }
 function addCamera() {
     let constraints = { audio: false, video: { width: 640, hight: 360 } };

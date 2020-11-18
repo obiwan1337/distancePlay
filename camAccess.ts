@@ -30,10 +30,10 @@ function init(): void {
     let video: HTMLVideoElement = document.createElement("video");
     video.setAttribute("id", "myOwnVideo");
     video.setAttribute("class", "video");
-    let legend: HTMLLegendElement = document.createElement("legend");
-    legend.innerText = "own Cam"
-    div.appendChild(legend);
-    div.appendChild(video);
+    //let legend: HTMLLegendElement = document.createElement("legend");
+    //legend.innerText = "own Cam"
+    //div.appendChild(legend);
+    //div.appendChild(video);
 
 }
 
