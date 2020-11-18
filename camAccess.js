@@ -1,4 +1,4 @@
-//document.addEventListener('DOMContentLoaded', init)
+document.addEventListener('DOMContentLoaded', init);
 let videoTrack = document.querySelector("#videoElement");
 function getstream() {
     let ownvideo = document.getElementById("ownvideo");
