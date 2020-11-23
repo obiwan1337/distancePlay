@@ -10,7 +10,7 @@ class App extends React.Component {
       left: 150,
     };
     
-    ...
+    
   }
   detectFromVideoFrame = (model, video) => {
     model.detect(video).then(() => {
@@ -56,8 +56,9 @@ class App extends React.Component {
       ctx.fillText(prediction.score.toFixed(2), x, y + height - textHeight);
     });
   };
-  Promise.all([loadModelPromise, webcamPromise])
-  componentDidMount() {
+
+  componentDidMount()
+  {
     if (navigator.mediaDevices.getUserMedia) {
       // define a Promise that'll be used to load the webcam and read its frames
       const webcamPromise = navigator.mediaDevices
@@ -94,7 +95,8 @@ class App extends React.Component {
         });
     }
   }
-  render() {
+  render() 
+  {
     return (
       <div> 
         <video
@@ -109,5 +111,5 @@ class App extends React.Component {
       </div>
     );
   }
-  const domContainer = document.querySelector('#root');
+const domContainer = document.querySelector('#root');
 ReactDOM.render(React.createElement(App), domContainer);
