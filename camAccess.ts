@@ -34,7 +34,7 @@ function init(): void {
     buttonDiv.appendChild(remButton);
     remButton.addEventListener("click", stopCamera);
     //create video element
-    let div: HTMLElement = document.getElementById("ownVideoDiv");
+    let div: HTMLElement = document.getElementById("oownVideoDiv");
     let video: HTMLVideoElement = document.createElement("video");
     video.setAttribute("id", "myOwnVideo");
     video.setAttribute("class", "video");
@@ -42,18 +42,19 @@ function init(): void {
     //legend.innerText = "own Cam"
     //div.appendChild(legend);
     div.appendChild(video);
-
+    
 }
 
 
 async function addCamera() {
 
-    navigator.mediaDevices.getUserMedia({ video: true })
+    await navigator.mediaDevices.getUserMedia({ video: true })
+
         .then(
             mediaStream => {
                 document.querySelector('video').srcObject = mediaStream;
                 const track = mediaStream.getVideoTracks()[0];
-                
+
             })
 }
 function stopCamera(): void {
