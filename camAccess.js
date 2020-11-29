@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 document.addEventListener('DOMContentLoaded', init);
 let videoTrack;
+const video = document.querySelector('video');
 let ownVideoStream;
 const constraints = {
     video: true,
@@ -48,13 +49,16 @@ function AddownCam() {
             navigator.mediaDevices
                 .getUserMedia(constraints);
             mediaStream => {
-                ownVideoStream.srcObject = mediaStream;
+                //ownVideoStream.srcObject = mediaStream;
+                video.srcObject = mediaStream;
             };
+            console.log(ownVideoStream.active + " " + "");
         }
         catch (error) {
             console.log("this was an error " + error);
         }
     });
+    video.play();
 }
 //video = ownVideoStream.srcObject;
 function stopCamera() {

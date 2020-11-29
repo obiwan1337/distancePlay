@@ -1,6 +1,7 @@
 
 document.addEventListener('DOMContentLoaded', init)
 let videoTrack: HTMLMediaElement;
+const video = document.querySelector('video');
 let ownVideoStream;
 const constraints = {
     video: true,
@@ -9,6 +10,7 @@ const constraints = {
 
 
 function init(): void {
+
     //create start and stop button
     let buttonDiv: HTMLElement = document.getElementById("button_Div");
     console.log(buttonDiv + "see the div");
@@ -43,8 +45,11 @@ function AddownCam() {
             navigator.mediaDevices
                 .getUserMedia(constraints)
             mediaStream => {
-                ownVideoStream.srcObject = mediaStream;
+                //ownVideoStream.srcObject = mediaStream;
+                video.srcObject = mediaStream;
             }
+            console.log(ownVideoStream.active + " " + "");
+
 
         }
         catch (error) {
@@ -52,6 +57,7 @@ function AddownCam() {
 
         }
     }
+    video.play();
 }
 //video = ownVideoStream.srcObject;
 
