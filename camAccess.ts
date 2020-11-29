@@ -1,15 +1,23 @@
 
 document.addEventListener('DOMContentLoaded', init)
-let videoTrack: HTMLVideoElement = document.querySelector("#videoElement");
-
-
-function getstream(): void {
-    let ownvideo: HTMLElement = document.getElementById("ownvideo");
-    let myOwnVideo: HTMLVideoElement = document.createElement("video")
-    myOwnVideo.setAttribute("id", "myStream");
-
-    //let stream = ownVideoCanvas.captureStream
+let videoTrack: HTMLMediaElement;
+ownVideoStream: MediaStreamTrack = null;
+const constraints = {
+    video: {
+        width: {
+            min: 180,
+            ideal: 337,
+            max: 360,
+        },
+        height: {
+            min: 120,
+            ideal: 190,
+            max: 240
+        },
+    }
 }
+
+
 function init(): void {
     //create start and stop button
     let buttonDiv: HTMLElement = document.getElementById("button_Div");
@@ -18,7 +26,7 @@ function init(): void {
     addButton.setAttribute("id", "add");
     addButton.setAttribute("class", "button");
     buttonDiv.appendChild(addButton);
-    addButton.addEventListener("click", addCamera);
+    //addButton.addEventListener("click", runAddCamera);
     //
     let remButton: HTMLButtonElement = document.createElement("button");
     remButton.setAttribute("id", "remove");
@@ -38,30 +46,23 @@ function init(): void {
 }
 
 
-function addCamera(): void {
+async function addCamera() {
 
-    let constraints = { audio: false, video: { width: 640, hight: 360 } }
-    navigator.mediaDevices.getUserMedia(constraints)
-    if (navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(function (stream) {
-                videoTrack.srcObject = stream;
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(
+            mediaStream => {
+                document.querySelector('video').srcObject = mediaStream;
+                const track = mediaStream.getVideoTracks()[0];
+                
             })
-            .catch(function (err0r) {
-                console.log("Something went wrong!");
-            });
-
-        getstream();
-
-    }
 }
-function stopCamera(e) {
+function stopCamera(): void {
 
     let stream: MediaProvider = videoTrack.srcObject;
     //let tracks: MediaProvider = stream.getTracks();
     //
     //for (let i = 0; i < tracks.length; i++) {
-    //    var track = tracks[i];
+    //    let track = tracks[i];
     //    track.stop();
     //}
 

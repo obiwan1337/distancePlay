@@ -1,10 +1,29 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 document.addEventListener('DOMContentLoaded', init);
-let videoTrack = document.querySelector("#videoElement");
+let videoTrack;
+const constraints = {
+    video: {
+        width: {
+            min: 180,
+            ideal: 337,
+            max: 360,
+        },
+        height: {
+            min: 120,
+            ideal: 190,
+            max: 240
+        },
+    }
+};
 function getstream() {
-    let ownvideo = document.getElementById("ownvideo");
-    let myOwnVideo = document.createElement("video");
-    myOwnVideo.setAttribute("id", "myStream");
-    //let stream = ownVideoCanvas.captureStream
 }
 function init() {
     //create start and stop button
@@ -14,7 +33,7 @@ function init() {
     addButton.setAttribute("id", "add");
     addButton.setAttribute("class", "button");
     buttonDiv.appendChild(addButton);
-    addButton.addEventListener("click", addCamera);
+    //addButton.addEventListener("click", runAddCamera);
     //
     let remButton = document.createElement("button");
     remButton.setAttribute("id", "remove");
@@ -31,26 +50,26 @@ function init() {
     //div.appendChild(legend);
     //div.appendChild(video);
 }
-function addCamera() {
-    let constraints = { audio: false, video: { width: 640, hight: 360 } };
-    navigator.mediaDevices.getUserMedia(constraints);
-    if (navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(function (stream) {
-            videoTrack.srcObject = stream;
-        })
-            .catch(function (err0r) {
-            console.log("Something went wrong!");
-        });
-        getstream();
-    }
+function addCamera(video) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let videoAsker;
+        try {
+            videoAsker = yield navigator.mediaDevices.getUserMedia({ video: true });
+        }
+        catch (e) {
+            console.log("catch did get you");
+        }
+        finally {
+            return videoAsker;
+        }
+    });
 }
-function stopCamera(e) {
+function stopCamera() {
     let stream = videoTrack.srcObject;
     //let tracks: MediaProvider = stream.getTracks();
     //
     //for (let i = 0; i < tracks.length; i++) {
-    //    var track = tracks[i];
+    //    let track = tracks[i];
     //    track.stop();
     //}
     videoTrack.srcObject = null;
