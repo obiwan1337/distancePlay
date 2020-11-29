@@ -61,8 +61,8 @@ function init() {
             console.log("this was an error " + error);
         }
     });
-    video = ownVideoStream.srcObject;
-    console.log("video" + video);
+    //video = ownVideoStream.srcObject;
+    console.log("video" + video + "ownmediastream" + ownVideoStream);
 }
 //async function addCamera() {
 //

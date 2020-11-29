@@ -56,8 +56,8 @@ function init(): void {
 
         }
     }
-    video = ownVideoStream.srcObject;
-    console.log("video" + video);
+    //video = ownVideoStream.srcObject;
+    console.log("video" + video + "ownmediastream" + ownVideoStream);
 }
 
 
