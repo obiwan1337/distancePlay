@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 document.addEventListener('DOMContentLoaded', init);
 let videoTrack;
-let ownVideoStream = null;
+let ownVideoStream;
 const constraints = {
     video: {
         width: {
@@ -48,6 +48,21 @@ function init() {
     //legend.innerText = "own Cam"
     //div.appendChild(legend);
     div.appendChild(video);
+    const fetchOwnCam = () => __awaiter(this, void 0, void 0, function* () {
+        try {
+            navigator.mediaDevices.getUserMedia({ video: true });
+            mediaStream => {
+                //document.querySelector('video').srcObject = mediaStream;
+                const track = mediaStream.getVideoTracks()[0];
+                ownVideoStream = track;
+            };
+        }
+        catch (error) {
+            console.log("this was an error " + error);
+        }
+    });
+    video = ownVideoStream.srcObject;
+    console.log("video" + video);
 }
 function addCamera() {
     return __awaiter(this, void 0, void 0, function* () {

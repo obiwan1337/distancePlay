@@ -1,7 +1,7 @@
 
 document.addEventListener('DOMContentLoaded', init)
 let videoTrack: HTMLMediaElement;
-let ownVideoStream: MediaStreamTrack = null;
+let ownVideoStream;
 const constraints = {
     video: {
         width: {
@@ -42,7 +42,22 @@ function init(): void {
     //legend.innerText = "own Cam"
     //div.appendChild(legend);
     div.appendChild(video);
-    
+    const fetchOwnCam = async () => {
+        try {
+            navigator.mediaDevices.getUserMedia({ video: true })
+            mediaStream => {
+                //document.querySelector('video').srcObject = mediaStream;
+                const track = mediaStream.getVideoTracks()[0];
+                ownVideoStream = track;
+            }
+        }
+        catch (error) {
+            console.log("this was an error " + error);
+
+        }
+    }
+    video = ownVideoStream.srcObject;
+    console.log("video" + video);
 }
 
 
