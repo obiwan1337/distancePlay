@@ -61,17 +61,17 @@ function init(): void {
 }
 
 
-async function addCamera() {
-
-    await navigator.mediaDevices.getUserMedia({ video: true })
-
-        .then(
-            mediaStream => {
-                document.querySelector('video').srcObject = mediaStream;
-                const track = mediaStream.getVideoTracks()[0];
-
-            })
-}
+//async function addCamera() {
+//
+//    await navigator.mediaDevices.getUserMedia({ video: true })
+//
+//        .then(
+//            mediaStream => {
+//                document.querySelector('video').srcObject = mediaStream;
+//                const track = mediaStream.getVideoTracks()[0];
+//
+//            })
+//}
 function stopCamera(): void {
 
     let stream: MediaProvider = videoTrack.srcObject;

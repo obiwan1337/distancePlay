@@ -64,15 +64,17 @@ function init() {
     video = ownVideoStream.srcObject;
     console.log("video" + video);
 }
-function addCamera() {
-    return __awaiter(this, void 0, void 0, function* () {
-        yield navigator.mediaDevices.getUserMedia({ video: true })
-            .then(mediaStream => {
-            document.querySelector('video').srcObject = mediaStream;
-            const track = mediaStream.getVideoTracks()[0];
-        });
-    });
-}
+//async function addCamera() {
+//
+//    await navigator.mediaDevices.getUserMedia({ video: true })
+//
+//        .then(
+//            mediaStream => {
+//                document.querySelector('video').srcObject = mediaStream;
+//                const track = mediaStream.getVideoTracks()[0];
+//
+//            })
+//}
 function stopCamera() {
     let stream = videoTrack.srcObject;
     //let tracks: MediaProvider = stream.getTracks();
