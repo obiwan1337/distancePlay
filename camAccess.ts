@@ -32,39 +32,30 @@ function init(): void {
     //legend.innerText = "own Cam"
     //div.appendChild(legend);
     div.appendChild(video);
-    
-    console.log (navigator.mediaDevices.getUserMedia(constraints));
+    console.log(navigator.mediaDevices.getUserMedia(constraints));
     console.log("video" + video + "ownmediastream " + ownVideoStream);
-    
+    AddownCam();
+
 }
+function AddownCam() {
+    const fetchOwnCam = async () => {
+        try {
+            navigator.mediaDevices
+                .getUserMedia(constraints)
+            mediaStream => {
+                ownVideoStream.srcObject = mediaStream;
+            }
 
-const fetchOwnCam = async () => {
-    try {
-        navigator.mediaDevices
-        .getUserMedia(constraints)
-        mediaStream => {
-            ownVideoStream.srcObject = mediaStream;}
-                       
-    }
-    catch (error) {
-        console.log("this was an error " + error);
+        }
+        catch (error) {
+            console.log("this was an error " + error);
 
+        }
     }
 }
 //video = ownVideoStream.srcObject;
 
-async function addCamera() {
-//
- let stream = null;
 
-  try {
-    stream = await navigator.mediaDevices.getUserMedia(constraints);
-    /* use the stream */
-    ownVideoStream = new MediaStream(stream)
-  } catch(err) {
-    /* handle the error */
-  }
-}
 function stopCamera(): void {
 
     let stream: MediaProvider = videoTrack.srcObject;

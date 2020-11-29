@@ -40,34 +40,23 @@ function init() {
     div.appendChild(video);
     console.log(navigator.mediaDevices.getUserMedia(constraints));
     console.log("video" + video + "ownmediastream " + ownVideoStream);
+    AddownCam();
 }
-const fetchOwnCam = () => __awaiter(this, void 0, void 0, function* () {
-    try {
-        navigator.mediaDevices
-            .getUserMedia(constraints);
-        mediaStream => {
-            ownVideoStream.srcObject = mediaStream;
-        };
-    }
-    catch (error) {
-        console.log("this was an error " + error);
-    }
-});
-//video = ownVideoStream.srcObject;
-function addCamera() {
-    return __awaiter(this, void 0, void 0, function* () {
-        //
-        let stream = null;
+function AddownCam() {
+    const fetchOwnCam = () => __awaiter(this, void 0, void 0, function* () {
         try {
-            stream = yield navigator.mediaDevices.getUserMedia(constraints);
-            /* use the stream */
-            ownVideoStream = new MediaStream(stream);
+            navigator.mediaDevices
+                .getUserMedia(constraints);
+            mediaStream => {
+                ownVideoStream.srcObject = mediaStream;
+            };
         }
-        catch (err) {
-            /* handle the error */
+        catch (error) {
+            console.log("this was an error " + error);
         }
     });
 }
+//video = ownVideoStream.srcObject;
 function stopCamera() {
     let stream = videoTrack.srcObject;
     //let tracks: MediaProvider = stream.getTracks();
