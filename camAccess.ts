@@ -1,7 +1,7 @@
 
 document.addEventListener('DOMContentLoaded', init)
 let videoTrack: HTMLMediaElement;
-ownVideoStream: MediaStreamTrack = null;
+let ownVideoStream: MediaStreamTrack = null;
 const constraints = {
     video: {
         width: {
@@ -41,7 +41,7 @@ function init(): void {
     //let legend: HTMLLegendElement = document.createElement("legend");
     //legend.innerText = "own Cam"
     //div.appendChild(legend);
-    //div.appendChild(video);
+    div.appendChild(video);
 
 }
 

@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 document.addEventListener('DOMContentLoaded', init);
 let videoTrack;
+let ownVideoStream = null;
 const constraints = {
     video: {
         width: {
@@ -23,8 +24,6 @@ const constraints = {
         },
     }
 };
-function getstream() {
-}
 function init() {
     //create start and stop button
     let buttonDiv = document.getElementById("button_Div");
@@ -48,20 +47,15 @@ function init() {
     //let legend: HTMLLegendElement = document.createElement("legend");
     //legend.innerText = "own Cam"
     //div.appendChild(legend);
-    //div.appendChild(video);
+    div.appendChild(video);
 }
-function addCamera(video) {
+function addCamera() {
     return __awaiter(this, void 0, void 0, function* () {
-        let videoAsker;
-        try {
-            videoAsker = yield navigator.mediaDevices.getUserMedia({ video: true });
-        }
-        catch (e) {
-            console.log("catch did get you");
-        }
-        finally {
-            return videoAsker;
-        }
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(mediaStream => {
+            document.querySelector('video').srcObject = mediaStream;
+            const track = mediaStream.getVideoTracks()[0];
+        });
     });
 }
 function stopCamera() {
