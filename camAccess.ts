@@ -3,18 +3,8 @@ document.addEventListener('DOMContentLoaded', init)
 let videoTrack: HTMLMediaElement;
 let ownVideoStream;
 const constraints = {
-    video: {
-        width: {
-            min: 180,
-            ideal: 337,
-            max: 360,
-        },
-        height: {
-            min: 120,
-            ideal: 190,
-            max: 240
-        },
-    }
+    video: true,
+    audio: false,
 }
 
 
@@ -42,36 +32,39 @@ function init(): void {
     //legend.innerText = "own Cam"
     //div.appendChild(legend);
     div.appendChild(video);
-    const fetchOwnCam = async () => {
-        try {
-            navigator.mediaDevices.getUserMedia({ video: true })
-            mediaStream => {
-                //document.querySelector('video').srcObject = mediaStream;
-                const track = mediaStream.getVideoTracks()[0];
-                ownVideoStream = track;
-            }
-        }
-        catch (error) {
-            console.log("this was an error " + error);
-
-        }
-    }
-    //video = ownVideoStream.srcObject;
-    console.log("video" + video + "ownmediastream" + ownVideoStream);
+    
+    console.log (navigator.mediaDevices.getUserMedia(constraints));
+    console.log("video" + video + "ownmediastream " + ownVideoStream);
+    
 }
 
+const fetchOwnCam = async () => {
+    try {
+        navigator.mediaDevices
+        .getUserMedia(constraints)
+        mediaStream => {
+            ownVideoStream.srcObject = mediaStream;}
+                       
+    }
+    catch (error) {
+        console.log("this was an error " + error);
 
-//async function addCamera() {
+    }
+}
+//video = ownVideoStream.srcObject;
+
+async function addCamera() {
 //
-//    await navigator.mediaDevices.getUserMedia({ video: true })
-//
-//        .then(
-//            mediaStream => {
-//                document.querySelector('video').srcObject = mediaStream;
-//                const track = mediaStream.getVideoTracks()[0];
-//
-//            })
-//}
+ let stream = null;
+
+  try {
+    stream = await navigator.mediaDevices.getUserMedia(constraints);
+    /* use the stream */
+    ownVideoStream = new MediaStream(stream)
+  } catch(err) {
+    /* handle the error */
+  }
+}
 function stopCamera(): void {
 
     let stream: MediaProvider = videoTrack.srcObject;
