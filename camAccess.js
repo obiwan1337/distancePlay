@@ -40,7 +40,7 @@ function init() {
     buttonDiv.appendChild(remButton);
     remButton.addEventListener("click", stopCamera);
     //create video element
-    let div = document.getElementById("oownVideoDiv");
+    let div = document.getElementById("ownVideoDiv");
     let video = document.createElement("video");
     video.setAttribute("id", "myOwnVideo");
     video.setAttribute("class", "video");
