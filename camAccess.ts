@@ -1,7 +1,7 @@
 
 document.addEventListener('DOMContentLoaded', init)
 let videoTrack: HTMLMediaElement;
-const video: HTMLVideoElement = <HTMLVideoElement>document.querySelector('#myOwnVideo');
+let video: HTMLVideoElement = <HTMLVideoElement>document.querySelector('#myOwnVideo');
 let ownVideoStream;
 const constraints = {
     video: true,
@@ -34,13 +34,13 @@ function init(): void {
 function AddownCam() {
     const fetchOwnCam = async () => {
         try {
-            navigator.mediaDevices
-                .getUserMedia(constraints)
-                .then( function (mediaStream) {
-                    //ownVideoStream.srcObject = mediaStream;
-                    video.srcObject = mediaStream;
-                })
-                
+            navigator.mediaDevices.getUserMedia(constraints)
+                .then(
+                    function (stream) {
+                        //ownVideoStream.srcObject = mediaStream;
+                        video.srcObject = stream;
+                    }
+                )
             console.log(ownVideoStream.active + " " + "");
 
 
