@@ -1,7 +1,7 @@
 
 document.addEventListener('DOMContentLoaded', init)
 let videoTrack: HTMLMediaElement;
-const video: HTMLVideoElement = <HTMLVideoElement>document.getElementById('video');
+const video: HTMLVideoElement = <HTMLVideoElement>document.querySelector('#myOwnVideo');
 let ownVideoStream;
 const constraints = {
     video: true,
@@ -25,7 +25,7 @@ function init(): void {
     remButton.setAttribute("class", "button");
     buttonDiv.appendChild(remButton);
     remButton.addEventListener("click", stopCamera);
-    
+
     console.log(navigator.mediaDevices.getUserMedia(constraints));
     console.log("video" + video + "ownmediastream " + ownVideoStream);
     AddownCam();
@@ -36,10 +36,11 @@ function AddownCam() {
         try {
             navigator.mediaDevices
                 .getUserMedia(constraints)
-            mediaStream => {
-                //ownVideoStream.srcObject = mediaStream;
-                video.srcObject = mediaStream;
-            }
+                .then( function (mediaStream) {
+                    //ownVideoStream.srcObject = mediaStream;
+                    video.srcObject = mediaStream;
+                })
+                
             console.log(ownVideoStream.active + " " + "");
 
 
@@ -50,7 +51,7 @@ function AddownCam() {
         }
     }
     console.log(video);
-    
+
 }
 //video = ownVideoStream.srcObject;
 
