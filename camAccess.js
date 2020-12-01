@@ -12,7 +12,7 @@ let videoTrack;
 let video = document.querySelector('#myOwnVideo');
 let ownVideoStream;
 const constraints = {
-    video: true,
+    video: true, frameRate: { ideal: 10, max: 15 },
     audio: false,
 };
 function init() {
@@ -40,6 +40,8 @@ function AddownCam() {
             navigator.mediaDevices.getUserMedia(constraints)
                 .then(function (stream) {
                 //ownVideoStream.srcObject = mediaStream;
+                let mediaStreamTracks = stream.getVideoTracks()[0];
+                console.log("" + mediaStreamTracks);
                 video.srcObject = stream;
             });
             console.log(ownVideoStream.active + " " + "");
