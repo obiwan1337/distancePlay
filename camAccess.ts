@@ -28,13 +28,13 @@ function init(): void {
 
     console.log(navigator.mediaDevices.getUserMedia(constraints));
     console.log("video" + video + "ownmediastream " + ownVideoStream);
-    AddownCam();
+    //AddownCam();
 
 }
 
-function AddownCam() {
+
     if (navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video: true })
+        navigator.mediaDevices.getUserMedia(constraints)
             .then(function (stream) {
                 video.srcObject = stream;
             })
@@ -59,7 +59,7 @@ function AddownCam() {
     //}
     //console.log(video);
 
-}
+
 //video = ownVideoStream.srcObject;
 
 

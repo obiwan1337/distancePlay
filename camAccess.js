@@ -23,35 +23,33 @@ function init() {
     remButton.addEventListener("click", stopCamera);
     console.log(navigator.mediaDevices.getUserMedia(constraints));
     console.log("video" + video + "ownmediastream " + ownVideoStream);
-    AddownCam();
+    //AddownCam();
 }
-function AddownCam() {
-    if (navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(function (stream) {
-            video.srcObject = stream;
-        })
-            .catch(function (err0r) {
-            console.log("Something went wrong!");
-        });
-    }
-    //const fetchOwnCam = async () => {
-    //    try {
-    //    navigator.mediaDevices.getUserMedia(constraints)
-    //        .then(
-    //            function (stream) {
-    //                //ownVideoStream.srcObject = mediaStream;
-    //
-    //                video.srcObject = stream;
-    //            }
-    //        )
-    //    }
-    //    catch (error) {
-    //    console.log("this was an error " + error)
-    //    }
-    //}
-    //console.log(video);
+if (navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia(constraints)
+        .then(function (stream) {
+        video.srcObject = stream;
+    })
+        .catch(function (err0r) {
+        console.log("Something went wrong!");
+    });
 }
+//const fetchOwnCam = async () => {
+//    try {
+//    navigator.mediaDevices.getUserMedia(constraints)
+//        .then(
+//            function (stream) {
+//                //ownVideoStream.srcObject = mediaStream;
+//
+//                video.srcObject = stream;
+//            }
+//        )
+//    }
+//    catch (error) {
+//    console.log("this was an error " + error)
+//    }
+//}
+//console.log(video);
 //video = ownVideoStream.srcObject;
 function stopCamera() {
     let stream = videoTrack.srcObject;
