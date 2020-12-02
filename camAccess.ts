@@ -38,12 +38,11 @@ function AddownCam() {
                 .then(
                     function (stream) {
                         //ownVideoStream.srcObject = mediaStream;
-                        let mediaStreamTracks: MediaStreamTrack = stream.getVideoTracks()[0];
                         console.log("stream in then " + stream);
                         video.srcObject = stream;
                     }
                 )
-            console.log(ownVideoStream.active + " " + "");
+            console.log(ownVideoStream.active + " active?" + "");
 
 
         }

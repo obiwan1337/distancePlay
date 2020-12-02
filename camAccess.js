@@ -40,11 +40,10 @@ function AddownCam() {
             navigator.mediaDevices.getUserMedia(constraints)
                 .then(function (stream) {
                 //ownVideoStream.srcObject = mediaStream;
-                let mediaStreamTracks = stream.getVideoTracks()[0];
                 console.log("stream in then " + stream);
                 video.srcObject = stream;
             });
-            console.log(ownVideoStream.active + " " + "");
+            console.log(ownVideoStream.active + " active?" + "");
         }
         catch (error) {
             console.log("this was an error " + error);
