@@ -1,7 +1,7 @@
 
 document.addEventListener('DOMContentLoaded', init)
 let videoTrack: HTMLMediaElement;
-let video: HTMLVideoElement = <HTMLVideoElement>document.querySelector('#myOwnVideo');
+let video = <HTMLVideoElement>document.querySelector('#myOwnVideo');
 let ownVideoStream;
 const constraints = {
     video: true, frameRate: { ideal: 10, max: 15 },
