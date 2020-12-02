@@ -14,16 +14,10 @@ function init(): void {
     //create start and stop button
     let buttonDiv: HTMLElement = document.getElementById("button_Div");
     console.log(buttonDiv + "see the div");
-    let addButton: HTMLButtonElement = document.createElement("button");
-    addButton.setAttribute("id", "add");
-    addButton.setAttribute("class", "button");
-    buttonDiv.appendChild(addButton);
-    //addButton.addEventListener("click", runAddCamera);
-    //
-    let remButton: HTMLButtonElement = document.createElement("button");
-    remButton.setAttribute("id", "remove");
-    remButton.setAttribute("class", "button");
-    buttonDiv.appendChild(remButton);
+    let addButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("add");
+    let remButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("stop");
+
+    addButton.addEventListener("click", AddCamera);
     remButton.addEventListener("click", stopCamera);
 
     console.log(navigator.mediaDevices.getUserMedia(constraints));
@@ -32,7 +26,7 @@ function init(): void {
 
 }
 
-
+function AddCamera(): void {
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia(constraints)
             .then(function (stream) {
@@ -60,18 +54,17 @@ function init(): void {
     //console.log(video);
 
 
-//video = ownVideoStream.srcObject;
+    //video = ownVideoStream.srcObject;
 
+}
+function stopCamera(e) {
+    let stream: MediaStream = <MediaStream>video.srcObject;
+    let tracks = stream.getVideoTracks();
 
-function stopCamera(): void {
+    for (let i = 0; i < tracks.length; i++) {
 
-    let stream: MediaProvider = videoTrack.srcObject;
-    //let tracks: MediaProvider = stream.getTracks();
-    //
-    //for (let i = 0; i < tracks.length; i++) {
-    //    let track = tracks[i];
-    //    track.stop();
-    //}
+        tracks[0].stop()
+    }
 
-    videoTrack.srcObject = null;
+    video.srcObject = null;
 }
