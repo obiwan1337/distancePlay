@@ -22,11 +22,12 @@ function init(): void {
 
     console.log(navigator.mediaDevices.getUserMedia(constraints));
     console.log("video" + video + "ownmediastream " + ownVideoStream);
-    //AddownCam();
+   
 
 }
 
 function AddCamera(): void {
+
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia(constraints)
             .then(function (stream) {

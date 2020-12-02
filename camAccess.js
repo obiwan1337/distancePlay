@@ -16,7 +16,6 @@ function init() {
     remButton.addEventListener("click", stopCamera);
     console.log(navigator.mediaDevices.getUserMedia(constraints));
     console.log("video" + video + "ownmediastream " + ownVideoStream);
-    //AddownCam();
 }
 function AddCamera() {
     if (navigator.mediaDevices.getUserMedia) {
