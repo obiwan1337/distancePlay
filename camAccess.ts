@@ -33,23 +33,20 @@ function init(): void {
 }
 function AddownCam() {
     const fetchOwnCam = async () => {
-        try {
-            navigator.mediaDevices.getUserMedia(constraints)
-                .then(
-                    function (stream) {
-                        //ownVideoStream.srcObject = mediaStream;
-                        console.log("stream in then " + stream);
-                        video.srcObject = stream;
-                    }
-                )
-            console.log(ownVideoStream.active + " active?" + "");
+        //try {
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(
+                function (stream) {
+                    //ownVideoStream.srcObject = mediaStream;
 
+                    video.srcObject = stream;
+                }
+            )
+        //}
+        //catch (error) {
+        //console.log("this was an error " + error);
 
-        }
-        catch (error) {
-            console.log("this was an error " + error);
-
-        }
+        //}
     }
     console.log(video);
 
