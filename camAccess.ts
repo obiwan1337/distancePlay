@@ -8,7 +8,7 @@ function init(): void {
     remButton.addEventListener("click", stopCam);
 }
 
-function addCam(): void {
+async function addCam() {
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(function (stream) {
