@@ -6,9 +6,10 @@ function init(): void {
     let remButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("stop");
     addButton.addEventListener("click", addCam);
     remButton.addEventListener("click", stopCam);
+    addCam();
 }
 
-async function addCam() {
+function addCam() {
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(function (stream) {
