@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', init);
+let video = document.querySelector("#videoElement");
 function init() {
-    let video = document.querySelector("#videoElement");
+    addCam();
+}
+function addCam() {
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(function (stream) {
