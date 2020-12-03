@@ -1,7 +1,10 @@
 document.addEventListener('DOMContentLoaded', init);
 let video = document.querySelector("#videoElement");
 function init() {
-    addCam();
+    let addButton = document.getElementById("add");
+    let remButton = document.getElementById("stop");
+    addButton.addEventListener("click", addCam);
+    remButton.addEventListener("click", stopCam);
 }
 function addCam() {
     if (navigator.mediaDevices.getUserMedia) {
@@ -13,5 +16,13 @@ function addCam() {
             console.log("Something went wrong!");
         });
     }
+}
+function stopCam(e) {
+    let stream = video.srcObject;
+    let tracks = stream.getVideoTracks();
+    for (let i = 0; i < tracks.length; i++) {
+        tracks[0].stop();
+    }
+    video.srcObject = null;
 }
 //# sourceMappingURL=camAccess.js.map

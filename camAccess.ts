@@ -1,28 +1,14 @@
 
-document.addEventListener('DOMContentLoaded', init)
-let videoTrack: HTMLMediaElement;
-let video = <HTMLVideoElement>document.querySelector('#myOwnVideo');
-let ownVideoStream;
-const constraints = {
-    video: true, audio: false,
-}
-
-
+document.addEventListener('DOMContentLoaded', init);
+let video: HTMLVideoElement = document.querySelector("#videoElement");
 function init(): void {
-
-    //create start and stop button
-
     let addButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("add");
     let remButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("stop");
-
-    addButton.addEventListener("click", AddCamera);
-    remButton.addEventListener("click", stopCamera);
-
-    console.log("init done");
+    addButton.addEventListener("click", addCam);
+    remButton.addEventListener("click", stopCam);
 }
 
-function AddCamera(): void {
-    console.log("starting add");
+function addCam(): void {
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(function (stream) {
@@ -33,7 +19,7 @@ function AddCamera(): void {
             });
     }
 }
-function stopCamera(e) {
+function stopCam(e): void {
     let stream: MediaStream = <MediaStream>video.srcObject;
     let tracks = stream.getVideoTracks();
 
