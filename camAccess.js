@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', init);
-let video = document.querySelector("#videoElement");
+let video;
 function init() {
     let addButton = document.getElementById("add");
     let remButton = document.getElementById("stop");
     addButton.addEventListener("click", addCam);
-    remButton.addEventListener("click", stopCam);
-    addCam();
+    remButton.addEventListener("click", stopCamera);
+    video = document.querySelector("#videoElement");
 }
 function addCam() {
     if (navigator.mediaDevices.getUserMedia) {
@@ -18,7 +18,7 @@ function addCam() {
         });
     }
 }
-function stopCam(e) {
+function stopCamera() {
     let stream = video.srcObject;
     let tracks = stream.getVideoTracks();
     for (let i = 0; i < tracks.length; i++) {

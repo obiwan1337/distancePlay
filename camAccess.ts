@@ -1,12 +1,14 @@
 
 document.addEventListener('DOMContentLoaded', init);
-let video: HTMLVideoElement = document.querySelector("#videoElement");
+let video: HTMLVideoElement;
 function init(): void {
     let addButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("add");
     let remButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("stop");
     addButton.addEventListener("click", addCam);
-    remButton.addEventListener("click", stopCam);
-    addCam();
+    remButton.addEventListener("click", stopCamera);
+    video = document.querySelector("#videoElement");
+    
+    
 }
 
 function addCam() {
@@ -20,7 +22,7 @@ function addCam() {
             });
     }
 }
-function stopCam(e): void {
+function stopCamera(): void {
     let stream: MediaStream = <MediaStream>video.srcObject;
     let tracks = stream.getVideoTracks();
 
@@ -28,6 +30,6 @@ function stopCam(e): void {
 
         tracks[0].stop()
     }
-
+    
     video.srcObject = null;
 }
