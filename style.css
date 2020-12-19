@@ -12,10 +12,6 @@ body {
     background-color: red;
 }
 
-#container {
-    
-    border: 10px #333 solid;
-}
 
 #ownVideoElement {
     width: 90%;
