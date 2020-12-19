@@ -1,19 +1,28 @@
 
 document.addEventListener('DOMContentLoaded', init);
 let video: HTMLVideoElement;
+let constraints = {
+
+    video: {
+        width: 160,
+        height: 120,
+        frameRate: 15,
+    }
+
+}
 function init(): void {
     let addButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("add");
     let remButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("stop");
     addButton.addEventListener("click", addCam);
     remButton.addEventListener("click", stopCamera);
-    video = document.querySelector("#videoElement");
-    
-    
+    video = document.querySelector("#ownVideoElement");
+
+
 }
 
 function addCam() {
     if (navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video: true })
+        navigator.mediaDevices.getUserMedia(constraints)
             .then(function (stream) {
                 video.srcObject = stream;
             })
@@ -30,6 +39,6 @@ function stopCamera(): void {
 
         tracks[0].stop()
     }
-    
+
     video.srcObject = null;
 }

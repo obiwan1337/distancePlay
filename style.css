@@ -4,33 +4,23 @@ body {
 }
 
 #add {
-    background-color: blue;
+    background-color: greenyellow;
 }
 
 #stop {
 
-    background-color: brown;
-}
-
-#ownVideoDiv {
-    border: black;
-    border-style: dashed;
-    border-width: 3px;
-    position: fixed;
-    color: rgba(0, 145, 19, 0.986);
-    bottom: 10px;
-    right: 10px;
+    background-color: red;
 }
 
 #container {
-    margin: 0px auto;
-    width: 500px;
-    height: 375px;
+    
     border: 10px #333 solid;
 }
 
-#videoElement {
+#ownVideoElement {
     width: 500px;
     height: 375px;
     background-color: #666;
+    margin-right: 5px;
+    margin-bottom: 5px;
 }
