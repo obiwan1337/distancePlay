@@ -41,7 +41,7 @@ function stopCamera() {
 function takeCardSC() {
     if (image.src == '') {
         let imageSRC = document.createAttribute("src");
-        imageSRC.value = video.src;
+        imageSRC.value = 'benis';
         image.setAttributeNode(imageSRC);
     }
     else {
