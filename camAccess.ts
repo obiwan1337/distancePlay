@@ -1,11 +1,14 @@
 
 document.addEventListener('DOMContentLoaded', init);
 let video: HTMLVideoElement;
+let image:HTMLImageElement;
+let ownCardList: { id: number, cardPictureLink: string, cardText: string }[] = [];
 let constraints = {
 
     video: {
-        width: 160,
-        height: 120,
+        cursor: "never",
+        width: 1280,
+        height: 720,
         frameRate: 15,
     }
 
@@ -16,7 +19,8 @@ function init(): void {
     addButton.addEventListener("click", addCam);
     remButton.addEventListener("click", stopCamera);
     video = document.querySelector("#ownVideoElement");
-
+    image = document.querySelector("#shotOfCard");
+    video.addEventListener("click", takeCardSC);
 
 }
 
@@ -41,4 +45,8 @@ function stopCamera(): void {
     }
 
     video.srcObject = null;
+}
+function takeCardSC(): void {
+video.src = image.src;
+
 }

@@ -1,15 +1,27 @@
 document.addEventListener('DOMContentLoaded', init);
 let video;
+let image;
+let ownCardList = [];
+let constraints = {
+    video: {
+        cursor: "never",
+        width: 1280,
+        height: 720,
+        frameRate: 15,
+    }
+};
 function init() {
     let addButton = document.getElementById("add");
     let remButton = document.getElementById("stop");
     addButton.addEventListener("click", addCam);
     remButton.addEventListener("click", stopCamera);
-    video = document.querySelector("#videoElement");
+    video = document.querySelector("#ownVideoElement");
+    image = document.querySelector("#shotOfCard");
+    video.addEventListener("click", takeCardSC);
 }
 function addCam() {
     if (navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video: true })
+        navigator.mediaDevices.getUserMedia(constraints)
             .then(function (stream) {
             video.srcObject = stream;
         })
@@ -25,5 +37,8 @@ function stopCamera() {
         tracks[0].stop();
     }
     video.srcObject = null;
+}
+function takeCardSC() {
+    video.src = image.src;
 }
 //# sourceMappingURL=camAccess.js.map
