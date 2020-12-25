@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', init);
 let video;
 let image;
+let canvas;
+let context = canvas.getContext('2d');
 let ownCardList = [];
 let constraints = {
     video: {
@@ -40,15 +42,13 @@ function stopCamera() {
 }
 function takeCardSC() {
     if (image.src == '') {
-        let imageSRC = document.createAttribute("src");
-        imageSRC.value = 'benis';
-        image.setAttributeNode(imageSRC);
+        let url = canvas.toDataURL();
+        image.src = url;
     }
     else {
         image.removeAttribute("src");
-        let imageSRC = document.createAttribute("src");
-        imageSRC.value = video.src;
-        image.setAttributeNode(imageSRC);
+        let url = canvas.toDataURL();
+        image.src = url;
     }
 }
 //# sourceMappingURL=camAccess.js.map
