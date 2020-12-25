@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', init);
 let video: HTMLVideoElement;
 let image: HTMLImageElement;
 let canvas: HTMLCanvasElement;
-let context = canvas.getContext('2d');
+let context: CanvasRenderingContext2D;
 let ownCardList: { id: number, cardPictureLink: string, cardText: string }[] = [];
 let constraints = {
 
@@ -24,6 +24,7 @@ function init(): void {
     image = document.querySelector("#shotOfCard");
     canvas = document.querySelector("#convertCanvas");
     video.addEventListener("click", takeCardSC);
+    context = canvas.getContext('2d')
 
 }
 

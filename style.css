@@ -27,5 +27,6 @@ body {
 }
 #convertCanvas {
     visibility: hidden;
-    
+    position: relative;
+    margin-right: -100%;
 }

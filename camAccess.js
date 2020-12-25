@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', init);
 let video;
 let image;
 let canvas;
-let context = canvas.getContext('2d');
+let context;
 let ownCardList = [];
 let constraints = {
     video: {
@@ -21,6 +21,7 @@ function init() {
     image = document.querySelector("#shotOfCard");
     canvas = document.querySelector("#convertCanvas");
     video.addEventListener("click", takeCardSC);
+    context = canvas.getContext('2d');
 }
 function addCam() {
     if (navigator.mediaDevices.getUserMedia) {
