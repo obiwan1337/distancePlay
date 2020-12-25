@@ -33,9 +33,8 @@ function addCam() {
         navigator.mediaDevices.getUserMedia(constraints)
             .then(function (stream) {
                 video.srcObject = stream;
-                let canvasH = video.height;
-                let canvasW = video.width;
-                canvas.setAttribute(width, "640")
+                canvas.style.width = video.width.toString() + "px";
+                canvas.style.height = video.height.toString() + "px";
             }
 
             )
@@ -63,7 +62,7 @@ function takeCardSC(): void {
     }
     else {
         image.removeAttribute("src");
-        context.drawImage(video, 0, 0, video.width, video.height)
+        context.drawImage(video, 0, 0, canvas.width, canvas.height)
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
 
