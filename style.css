@@ -25,3 +25,7 @@ body {
     margin-right: 1%;
     margin-bottom: 5%;
 }
+#convertCanvas {
+    visibility: hidden;
+    
+}

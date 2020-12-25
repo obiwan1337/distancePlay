@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', init);
 let video: HTMLVideoElement;
 let image: HTMLImageElement;
-let canvas:HTMLCanvasElement;
+let canvas: HTMLCanvasElement;
 let context = canvas.getContext('2d');
 let ownCardList: { id: number, cardPictureLink: string, cardText: string }[] = [];
 let constraints = {
@@ -22,6 +22,7 @@ function init(): void {
     remButton.addEventListener("click", stopCamera);
     video = document.querySelector("#ownVideoElement");
     image = document.querySelector("#shotOfCard");
+    canvas = document.querySelector("#convertCanvas");
     video.addEventListener("click", takeCardSC);
 
 }
@@ -50,13 +51,15 @@ function stopCamera(): void {
 }
 function takeCardSC(): void {
     if (image.src == '') {
+        context.drawImage(video, 0, 0, video.width, video.height)
         let url = canvas.toDataURL();
         image.src = url;
     }
     else {
         image.removeAttribute("src");
+        context.drawImage(video, 0, 0, video.width, video.height)
         let url = canvas.toDataURL();
         image.src = url;
-        
+
     }
 }

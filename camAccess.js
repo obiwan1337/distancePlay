@@ -19,6 +19,7 @@ function init() {
     remButton.addEventListener("click", stopCamera);
     video = document.querySelector("#ownVideoElement");
     image = document.querySelector("#shotOfCard");
+    canvas = document.querySelector("#convertCanvas");
     video.addEventListener("click", takeCardSC);
 }
 function addCam() {
@@ -42,11 +43,13 @@ function stopCamera() {
 }
 function takeCardSC() {
     if (image.src == '') {
+        context.drawImage(video, 0, 0, video.width, video.height);
         let url = canvas.toDataURL();
         image.src = url;
     }
     else {
         image.removeAttribute("src");
+        context.drawImage(video, 0, 0, video.width, video.height);
         let url = canvas.toDataURL();
         image.src = url;
     }
