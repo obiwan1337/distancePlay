@@ -1,7 +1,7 @@
 
 document.addEventListener('DOMContentLoaded', init);
 let video: HTMLVideoElement;
-let image:HTMLImageElement;
+let image: HTMLImageElement;
 let ownCardList: { id: number, cardPictureLink: string, cardText: string }[] = [];
 let constraints = {
 
@@ -47,6 +47,16 @@ function stopCamera(): void {
     video.srcObject = null;
 }
 function takeCardSC(): void {
-video.src = image.src;
-
+    if (image.src == '') {
+        let imageSRC = document.createAttribute("src");
+        imageSRC.value = video.src;
+        image.setAttributeNode(imageSRC);
+    }
+    else {
+        image.removeAttribute("src");
+        
+        let imageSRC = document.createAttribute("src");
+        imageSRC.value = video.src;
+        image.setAttributeNode(imageSRC);
+    }
 }

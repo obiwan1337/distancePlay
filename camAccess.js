@@ -39,6 +39,16 @@ function stopCamera() {
     video.srcObject = null;
 }
 function takeCardSC() {
-    video.src = image.src;
+    if (image.src == '') {
+        let imageSRC = document.createAttribute("src");
+        imageSRC.value = video.src;
+        image.setAttributeNode(imageSRC);
+    }
+    else {
+        image.removeAttribute("src");
+        let imageSRC = document.createAttribute("src");
+        imageSRC.value = video.src;
+        image.setAttributeNode(imageSRC);
+    }
 }
 //# sourceMappingURL=camAccess.js.map
