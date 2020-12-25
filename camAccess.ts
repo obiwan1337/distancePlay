@@ -33,7 +33,12 @@ function addCam() {
         navigator.mediaDevices.getUserMedia(constraints)
             .then(function (stream) {
                 video.srcObject = stream;
-            })
+                let canvasH = video.height;
+                let canvasW = video.width;
+                canvas.setAttribute(width, "640")
+            }
+
+            )
             .catch(function (err0r) {
                 console.log("Something went wrong!");
             });
@@ -52,14 +57,14 @@ function stopCamera(): void {
 }
 function takeCardSC(): void {
     if (image.src == '') {
-        context.drawImage(video, 0, 0, video.width, video.height)
-        let url = canvas.toDataURL();
+        context.drawImage(video, 0, 0, canvas.width, canvas.height)
+        let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
     }
     else {
         image.removeAttribute("src");
         context.drawImage(video, 0, 0, video.width, video.height)
-        let url = canvas.toDataURL();
+        let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
 
     }
