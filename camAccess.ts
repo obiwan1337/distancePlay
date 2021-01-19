@@ -1,5 +1,6 @@
+document.addEventListener('DOMContentLoaded', init);
 import Tesseract from 'tesseract.js';
-namespace imagedistancer {
+
 
     document.addEventListener('DOMContentLoaded', init);
     const { createWorker } = require('tesseract.js');
@@ -90,4 +91,3 @@ namespace imagedistancer {
             recognizeImage();
         }
     }
-}
