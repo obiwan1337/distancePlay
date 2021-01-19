@@ -1,5 +1,5 @@
 "use strict";
-
+Object.defineProperty(exports, "__esModule", { value: true });
 document.addEventListener('DOMContentLoaded', init);
 const tesseract_ts_1 = require("tesseract.ts");
 const worker = tesseract_ts_1.Tesseract.createWorker();
