@@ -1,6 +1,7 @@
 
 document.addEventListener('DOMContentLoaded', init);
 import tesseract from 'tesseract.js';
+
 const worker = tesseract.createWorker();
 let video: HTMLVideoElement;
 let image: HTMLImageElement;
