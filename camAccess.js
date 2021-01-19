@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 document.addEventListener('DOMContentLoaded', init);
 const tesseract_js_1 = __importDefault(require("tesseract.js"));
+const worker = tesseract_js_1.default.createWorker();
 let video;
 let image;
 let canvas;
@@ -34,13 +35,15 @@ function init() {
     canvas = document.querySelector("#convertCanvas");
     video.addEventListener("click", takeCardSC);
     context = canvas.getContext('2d');
-    tesseract_js_1.default.createWorker();
 }
-function recognizeImage() {
+async function recognizeImage() {
     console.log('recognize started.');
-    tesseract_js_1.default.recognize(image.src, 'eng', { logger: m => console.log(m) }).then(({ data: { text } }) => {
-        console.log(text);
-    });
+    await worker.load();
+    await worker.loadLanguage('eng');
+    await worker.initialize('eng');
+    const { data: { text } } = await worker.recognize(image.src);
+    console.log(text);
+    await worker.terminate();
 }
 function addCam() {
     if (navigator.mediaDevices.getUserMedia) {

@@ -1,7 +1,7 @@
 
 document.addEventListener('DOMContentLoaded', init);
 import tesseract from 'tesseract.js';
-
+const worker = tesseract.createWorker();
 let video: HTMLVideoElement;
 let image: HTMLImageElement;
 let canvas: HTMLCanvasElement;
@@ -34,16 +34,18 @@ function init(): void {
     canvas = document.querySelector("#convertCanvas");
     video.addEventListener("click", takeCardSC);
     context = canvas.getContext('2d')
-    tesseract.createWorker();
+
 
 }
-function recognizeImage():void {
+async function recognizeImage() {
     console.log('recognize started.')
-    tesseract.recognize(image.src, 'eng',
-        { logger: m => console.log(m) }
-    ).then(({ data: { text } }) => {
-        console.log(text);
-    })
+    await worker.load();
+    await worker.loadLanguage('eng');
+    await worker.initialize('eng');
+    const { data: { text } } = await worker.recognize(image.src);
+    console.log(text);
+    await worker.terminate();
+   
 }
 function addCam() {
     if (navigator.mediaDevices.getUserMedia) {
