@@ -1,11 +1,8 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 document.addEventListener('DOMContentLoaded', init);
-const tesseract_js_1 = __importDefault(require("tesseract.js"));
-const worker = tesseract_js_1.default.createWorker();
+const tesseract_ts_1 = require("tesseract.ts");
+const worker = tesseract_ts_1.Tesseract.createWorker();
 let video;
 let image;
 let canvas;
@@ -45,6 +42,12 @@ async function recognizeImage() {
     console.log(text);
     await worker.terminate();
 }
+function reconImage() {
+    worker.recognize(image.src);
+    worker.progress(console.log);
+    worker.then((res) => { console.log(res); });
+    worker.catch(console.error);
+}
 function addCam() {
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia(constraints)
@@ -72,7 +75,7 @@ function takeCardSC() {
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
         console.log('about to call analyse');
-        recognizeImage();
+        reconImage();
     }
     else {
         image.removeAttribute("src");
@@ -80,7 +83,7 @@ function takeCardSC() {
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
         console.log('about to call analyse');
-        recognizeImage();
+        reconImage();
     }
 }
 //# sourceMappingURL=camAccess.js.map

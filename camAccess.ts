@@ -1,20 +1,13 @@
 
 document.addEventListener('DOMContentLoaded', init);
-import tesseract from 'tesseract.js';
+import { Tesseract } from "tesseract.ts";
 
-const worker = tesseract.createWorker();
+const worker = Tesseract.createWorker();
 let video: HTMLVideoElement;
 let image: HTMLImageElement;
 let canvas: HTMLCanvasElement;
 let context: CanvasRenderingContext2D;
 let ownCardList: { id: number, cardPictureLink: string, cardText: string }[] = [];
-const recognitionImageInputElement = document.querySelector('#shotOfCard');
-
-const recognitionConfidenceInputElement = document.querySelector('#recognition-confidence-input');
-const recognitionProgressElement: HTMLProgressElement = document.querySelector('#recognition-progress');
-const recognitionTextElement = document.querySelector('#recognition-text');
-const originalImageElement = document.querySelector('#original-image');
-const labeledImageElement = document.querySelector('#labeled-image');
 let constraints = {
 
     video: {
@@ -36,7 +29,6 @@ function init(): void {
     video.addEventListener("click", takeCardSC);
     context = canvas.getContext('2d')
 
-
 }
 async function recognizeImage() {
     console.log('recognize started.')
@@ -46,7 +38,13 @@ async function recognizeImage() {
     const { data: { text } } = await worker.recognize(image.src);
     console.log(text);
     await worker.terminate();
-   
+}
+function reconImage() {
+
+    worker.recognize(image.src)
+    worker.progress(console.log)
+    worker.then((res: any) => { console.log(res); })
+    worker.catch(console.error);
 }
 function addCam() {
     if (navigator.mediaDevices.getUserMedia) {
@@ -80,7 +78,7 @@ function takeCardSC(): void {
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
         console.log('about to call analyse')
-        recognizeImage();
+        reconImage();
 
     }
     else {
@@ -89,6 +87,6 @@ function takeCardSC(): void {
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
         console.log('about to call analyse')
-        recognizeImage();
+        reconImage();
     }
 }
