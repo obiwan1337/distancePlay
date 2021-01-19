@@ -1,8 +1,12 @@
 
 document.addEventListener('DOMContentLoaded', init);
-import { Tesseract } from "tesseract.ts";
+import Tesseract from 'tesseract.js';
+const { createWorker } = require('tesseract.js');
 
-const worker = Tesseract.createWorker();
+const worker = createWorker();
+
+
+
 let video: HTMLVideoElement;
 let image: HTMLImageElement;
 let canvas: HTMLCanvasElement;
@@ -30,22 +34,18 @@ function init(): void {
     context = canvas.getContext('2d')
 
 }
-async function recognizeImage() {
-    console.log('recognize started.')
-    await worker.load();
-    await worker.loadLanguage('eng');
-    await worker.initialize('eng');
-    const { data: { text } } = await worker.recognize(image.src);
-    console.log(text);
-    await worker.terminate();
+function recognizeImage() {
+    console.log("beginning with whatever it is doing");
+        (async () => {
+            await worker.load();
+            await worker.loadLanguage('eng');
+            await worker.initialize('eng');
+            const { data: { text } } = await worker.recognize('image.src');
+            console.log(text);
+            await worker.terminate();
+        })();
 }
-function reconImage() {
 
-    worker.recognize(image.src)
-    worker.progress(console.log)
-    worker.then((res: any) => { console.log(res); })
-    worker.catch(console.error);
-}
 function addCam() {
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia(constraints)
@@ -78,7 +78,7 @@ function takeCardSC(): void {
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
         console.log('about to call analyse')
-        reconImage();
+        recognizeImage();
 
     }
     else {
@@ -87,6 +87,6 @@ function takeCardSC(): void {
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
         console.log('about to call analyse')
-        reconImage();
+        recognizeImage();
     }
 }

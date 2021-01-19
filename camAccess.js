@@ -1,19 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 document.addEventListener('DOMContentLoaded', init);
-const tesseract_ts_1 = require("tesseract.ts");
-const worker = tesseract_ts_1.Tesseract.createWorker();
+const { createWorker } = require('tesseract.js');
+const worker = createWorker();
 let video;
 let image;
 let canvas;
 let context;
 let ownCardList = [];
-const recognitionImageInputElement = document.querySelector('#shotOfCard');
-const recognitionConfidenceInputElement = document.querySelector('#recognition-confidence-input');
-const recognitionProgressElement = document.querySelector('#recognition-progress');
-const recognitionTextElement = document.querySelector('#recognition-text');
-const originalImageElement = document.querySelector('#original-image');
-const labeledImageElement = document.querySelector('#labeled-image');
 let constraints = {
     video: {
         cursor: "never",
@@ -33,20 +25,16 @@ function init() {
     video.addEventListener("click", takeCardSC);
     context = canvas.getContext('2d');
 }
-async function recognizeImage() {
-    console.log('recognize started.');
-    await worker.load();
-    await worker.loadLanguage('eng');
-    await worker.initialize('eng');
-    const { data: { text } } = await worker.recognize(image.src);
-    console.log(text);
-    await worker.terminate();
-}
-function reconImage() {
-    worker.recognize(image.src);
-    worker.progress(console.log);
-    worker.then((res) => { console.log(res); });
-    worker.catch(console.error);
+function recognizeImage() {
+    console.log("beginning with whatever it is doing");
+    (async () => {
+        await worker.load();
+        await worker.loadLanguage('eng');
+        await worker.initialize('eng');
+        const { data: { text } } = await worker.recognize('image.src');
+        console.log(text);
+        await worker.terminate();
+    })();
 }
 function addCam() {
     if (navigator.mediaDevices.getUserMedia) {
@@ -75,7 +63,7 @@ function takeCardSC() {
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
         console.log('about to call analyse');
-        reconImage();
+        recognizeImage();
     }
     else {
         image.removeAttribute("src");
@@ -83,7 +71,8 @@ function takeCardSC() {
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
         console.log('about to call analyse');
-        reconImage();
+        recognizeImage();
     }
 }
+export {};
 //# sourceMappingURL=camAccess.js.map
