@@ -68,6 +68,7 @@ function takeCardSC() {
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
+        console.log('about to call analyse');
         recognizeImage();
     }
     else {
@@ -75,6 +76,7 @@ function takeCardSC() {
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
+        console.log('about to call analyse');
         recognizeImage();
     }
 }
