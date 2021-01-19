@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', init);
-import Tesseract from 'tesseract.js';
+
 
 
     document.addEventListener('DOMContentLoaded', init);
