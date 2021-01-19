@@ -38,6 +38,7 @@ function init(): void {
 
 }
 function recognizeImage() {
+    console.log('recognize started.')
     tesseract.recognize(image.src, 'eng',
         { logger: m => console.log(m) }
     ).then(({ data: { text } }) => {

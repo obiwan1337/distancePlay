@@ -1,9 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
 document.addEventListener('DOMContentLoaded', init);
+const tesseract_js_1 = __importDefault(require("tesseract.js"));
 let video;
 let image;
 let canvas;
 let context;
 let ownCardList = [];
+const recognitionImageInputElement = document.querySelector('#shotOfCard');
+const recognitionConfidenceInputElement = document.querySelector('#recognition-confidence-input');
+const recognitionProgressElement = document.querySelector('#recognition-progress');
+const recognitionTextElement = document.querySelector('#recognition-text');
+const originalImageElement = document.querySelector('#original-image');
+const labeledImageElement = document.querySelector('#labeled-image');
 let constraints = {
     video: {
         cursor: "never",
@@ -22,6 +34,13 @@ function init() {
     canvas = document.querySelector("#convertCanvas");
     video.addEventListener("click", takeCardSC);
     context = canvas.getContext('2d');
+    tesseract_js_1.default.createWorker();
+}
+function recognizeImage() {
+    console.log('recognize started.');
+    tesseract_js_1.default.recognize(image.src, 'eng', { logger: m => console.log(m) }).then(({ data: { text } }) => {
+        console.log(text);
+    });
 }
 function addCam() {
     if (navigator.mediaDevices.getUserMedia) {
@@ -49,12 +68,14 @@ function takeCardSC() {
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
+        recognizeImage();
     }
     else {
         image.removeAttribute("src");
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
+        recognizeImage();
     }
 }
 //# sourceMappingURL=camAccess.js.map
