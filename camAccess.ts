@@ -1,10 +1,19 @@
 
 document.addEventListener('DOMContentLoaded', init);
+import tesseract from 'tesseract.js';
+
 let video: HTMLVideoElement;
 let image: HTMLImageElement;
 let canvas: HTMLCanvasElement;
 let context: CanvasRenderingContext2D;
 let ownCardList: { id: number, cardPictureLink: string, cardText: string }[] = [];
+const recognitionImageInputElement = document.querySelector('#shotOfCard');
+
+const recognitionConfidenceInputElement = document.querySelector('#recognition-confidence-input');
+const recognitionProgressElement: HTMLProgressElement = document.querySelector('#recognition-progress');
+const recognitionTextElement = document.querySelector('#recognition-text');
+const originalImageElement = document.querySelector('#original-image');
+const labeledImageElement = document.querySelector('#labeled-image');
 let constraints = {
 
     video: {
@@ -25,9 +34,16 @@ function init(): void {
     canvas = document.querySelector("#convertCanvas");
     video.addEventListener("click", takeCardSC);
     context = canvas.getContext('2d')
+    tesseract.createWorker();
 
 }
-
+function recognizeImage() {
+    tesseract.recognize(image.src, 'eng',
+        { logger: m => console.log(m) }
+    ).then(({ data: { text } }) => {
+        console.log(text);
+    })
+}
 function addCam() {
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia(constraints)
@@ -59,12 +75,14 @@ function takeCardSC(): void {
         context.drawImage(video, 0, 0, canvas.width, canvas.height)
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
+        recognizeImage();
+
     }
     else {
         image.removeAttribute("src");
         context.drawImage(video, 0, 0, canvas.width, canvas.height)
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
-
+        recognizeImage();
     }
 }
