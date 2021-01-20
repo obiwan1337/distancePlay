@@ -1,12 +1,7 @@
-import Tesseract from 'tesseract.js';
+import {Tesseract} from "tesseract.ts";
 
-Tesseract.recognize(
-  'https://tesseract.projectnaptha.com/img/eng_bw.png',
-  'eng',
-  { logger: m => console.log(m) }
-).then(({ data: { text } }) => {
-  console.log(text);
-})
+// then according to the original docs/examples
+
 document.addEventListener('DOMContentLoaded', init);
 let videostream: HTMLVideoElement;
 let image: HTMLImageElement;
@@ -36,7 +31,16 @@ function init(): void {
     context = canvas.getContext('2d');
 
 }
-
+async function recognizeTxt() {
+    Tesseract
+    .recognize(image.src)
+    .progress(console.log)
+    .then((res: any) => {
+        console.log(res);
+    })
+    .catch(console.error);
+    
+}
 
 function addCam() {
     if (navigator.mediaDevices.getUserMedia) {
@@ -78,7 +82,7 @@ function takeCardSC(): void {
         context.drawImage(videostream, 0, 0, canvas.width, canvas.height)
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
-        console.log('about to call analyse');
-        
+        console.log('about to call analyse else');
+        recognizeTxt();
     }
 }
