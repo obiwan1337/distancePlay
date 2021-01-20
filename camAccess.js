@@ -8,10 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 document.addEventListener('DOMContentLoaded', init);
-document.addEventListener('DOMContentLoaded', init);
+let video;
 const { createWorker } = require('tesseract.js');
 const worker = createWorker();
-let video;
 let image;
 let canvas;
 let context;
