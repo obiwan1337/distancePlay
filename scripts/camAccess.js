@@ -53,7 +53,6 @@ function takeCardSC() {
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
         console.log('about to call analyse');
-        recognizeImage();
     }
     else {
         image.removeAttribute("src");
@@ -61,7 +60,6 @@ function takeCardSC() {
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
         console.log('about to call analyse');
-        recognizeImage();
     }
 }
 //# sourceMappingURL=camAccess.js.map

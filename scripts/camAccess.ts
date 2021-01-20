@@ -64,7 +64,7 @@ function takeCardSC(): void {
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
         console.log('about to call analyse');
-        recognizeImage();
+        
 
     }
     else {
@@ -73,6 +73,6 @@ function takeCardSC(): void {
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
         console.log('about to call analyse');
-        recognizeImage();
+        
     }
 }
