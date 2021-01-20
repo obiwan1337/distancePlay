@@ -1,13 +1,11 @@
-import tesseract from "tesseract.js"
+import * as TesseractTypes from "tesseract.js";
+declare var window: any;
+const _instance = typeof window !== 'undefined' ? require("tesseract.js/dist/tesseract") : require('tesseract.js'); 
 document.addEventListener('DOMContentLoaded', init);
 let videostream: HTMLVideoElement;
 let image: HTMLImageElement;
 let canvas: HTMLCanvasElement;
 let context: CanvasRenderingContext2D;
-
-const { createWorker } = require('tesseract.js');
-const worker = createWorker();
-
 let ownCardList: { id: number, cardPictureLink: string, cardText: string }[] = [];
 let constraints = {
     video: {
@@ -19,6 +17,7 @@ let constraints = {
 
 }
 function init(): void {
+    
     let addButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("add");
     let remButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("stop");
     addButton.addEventListener("click", addCam);
@@ -27,21 +26,11 @@ function init(): void {
     videostream.addEventListener("click", takeCardSC);
     image = document.querySelector("#shotOfCard");
     canvas = document.querySelector("#convertCanvas");
-    
+
     context = canvas.getContext('2d');
 
 }
-function recognizeImage() {
-    console.log("beginning with whatever it is doing");
-    (async () => {
-        await worker.load();
-        await worker.loadLanguage('eng');
-        await worker.initialize('eng');
-        const { data: { text } } = await worker.recognize('image.src');
-        console.log(text);
-        await worker.terminate();
-    })();
-}
+
 
 function addCam() {
     if (navigator.mediaDevices.getUserMedia) {

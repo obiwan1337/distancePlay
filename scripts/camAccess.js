@@ -1,21 +1,11 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
+const _instance = typeof window !== 'undefined' ? require("tesseract.js/dist/tesseract") : require('tesseract.js');
 document.addEventListener('DOMContentLoaded', init);
 let videostream;
 let image;
 let canvas;
 let context;
-const { createWorker } = require('tesseract.js');
-const worker = createWorker();
 let ownCardList = [];
 let constraints = {
     video: {
@@ -35,17 +25,6 @@ function init() {
     image = document.querySelector("#shotOfCard");
     canvas = document.querySelector("#convertCanvas");
     context = canvas.getContext('2d');
-}
-function recognizeImage() {
-    console.log("beginning with whatever it is doing");
-    (() => __awaiter(this, void 0, void 0, function* () {
-        yield worker.load();
-        yield worker.loadLanguage('eng');
-        yield worker.initialize('eng');
-        const { data: { text } } = yield worker.recognize('image.src');
-        console.log(text);
-        yield worker.terminate();
-    }))();
 }
 function addCam() {
     if (navigator.mediaDevices.getUserMedia) {
