@@ -3,7 +3,7 @@ let video: HTMLVideoElement;
 let image: HTMLImageElement;
 let canvas: HTMLCanvasElement;
 let context: CanvasRenderingContext2D;
-
+import tesseract from "tesseract.js"
 const { createWorker } = require('tesseract.js');
 const worker = createWorker();
 
