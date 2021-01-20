@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,9 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var tesseract_ts_1 = require("tesseract.ts");
-// then according to the original docs/examples
+import Tesseract from "tesseract.js";
 document.addEventListener('DOMContentLoaded', init);
 var videostream;
 var image;
@@ -66,7 +63,7 @@ function init() {
 function recognizeTxt() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            tesseract_ts_1.Tesseract
+            Tesseract
                 .recognize(image.src)
                 .progress(console.log)
                 .then(function (res) {

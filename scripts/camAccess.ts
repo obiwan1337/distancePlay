@@ -1,6 +1,4 @@
-import {Tesseract} from "tesseract.ts";
-
-// then according to the original docs/examples
+import Tesseract from "tesseract.js";
 
 document.addEventListener('DOMContentLoaded', init);
 let videostream: HTMLVideoElement;
