@@ -1,6 +1,3 @@
-import * as TesseractTypes from "tesseract.js";
-declare var window: any;
-const _instance = typeof window !== 'undefined' ? require("tesseract.js/dist/tesseract") : require('tesseract.js'); 
 document.addEventListener('DOMContentLoaded', init);
 let videostream: HTMLVideoElement;
 let image: HTMLImageElement;

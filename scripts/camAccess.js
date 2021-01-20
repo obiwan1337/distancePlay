@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const _instance = typeof window !== 'undefined' ? require("tesseract.js/dist/tesseract") : require('tesseract.js');
 document.addEventListener('DOMContentLoaded', init);
 let videostream;
 let image;
@@ -15,6 +12,9 @@ let constraints = {
         frameRate: 15,
     }
 };
+const { createWorker } = require('tesseract.js');
+const worker = createWorker();
+
 function init() {
     let addButton = document.getElementById("add");
     let remButton = document.getElementById("stop");
@@ -47,12 +47,24 @@ function stopCamera() {
     }
     videostream.srcObject = null;
 }
+function recognizeImage() {
+    console.log("beginning with whatever it is doing");
+    (async () => {
+        await worker.load();
+        await worker.loadLanguage('eng');
+        await worker.initialize('eng');
+        const { data: { text } } = await worker.recognize('image.src');
+        console.log(text);
+        await worker.terminate();
+    })();
+}
 function takeCardSC() {
     if (image.src == '') {
         context.drawImage(videostream, 0, 0, canvas.width, canvas.height);
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
         console.log('about to call analyse');
+        recognizeImage()
     }
     else {
         image.removeAttribute("src");
@@ -60,6 +72,7 @@ function takeCardSC() {
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
         console.log('about to call analyse');
+        recognizeImage()
     }
 }
 //# sourceMappingURL=camAccess.js.map
