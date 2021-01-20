@@ -9,11 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 document.addEventListener('DOMContentLoaded', init);
 let video;
-const { createWorker } = require('tesseract.js');
-const worker = createWorker();
 let image;
 let canvas;
 let context;
+const { createWorker } = require('tesseract.js');
+const worker = createWorker();
 let ownCardList = [];
 let constraints = {
     video: {

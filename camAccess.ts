@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', init);
 let video: HTMLVideoElement;
-
+let image: HTMLImageElement;
+let canvas: HTMLCanvasElement;
+let context: CanvasRenderingContext2D;
 const { createWorker } = require('tesseract.js');
 const worker = createWorker();
 
 
-let image: HTMLImageElement;
-let canvas: HTMLCanvasElement;
-let context: CanvasRenderingContext2D;
+
 let ownCardList: { id: number, cardPictureLink: string, cardText: string }[] = [];
 let constraints = {
 
