@@ -1,10 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var tesseract_js_1 = __importDefault(require("tesseract.js"));
+tesseract_js_1.default.recognize('https://tesseract.projectnaptha.com/img/eng_bw.png', 'eng', { logger: function (m) { return console.log(m); } }).then(function (_a) {
+    var text = _a.data.text;
+    console.log(text);
+});
 document.addEventListener('DOMContentLoaded', init);
-let videostream;
-let image;
-let canvas;
-let context;
-let ownCardList = [];
-let constraints = {
+var videostream;
+var image;
+var canvas;
+var context;
+var ownCardList = [];
+var constraints = {
     video: {
         cursor: "never",
         width: 1280,
@@ -13,8 +23,8 @@ let constraints = {
     }
 };
 function init() {
-    let addButton = document.getElementById("add");
-    let remButton = document.getElementById("stop");
+    var addButton = document.getElementById("add");
+    var remButton = document.getElementById("stop");
     addButton.addEventListener("click", addCam);
     remButton.addEventListener("click", stopCamera);
     videostream = document.querySelector("#ownVideoElement");
@@ -37,9 +47,9 @@ function addCam() {
     }
 }
 function stopCamera() {
-    let stream = videostream.srcObject;
-    let tracks = stream.getVideoTracks();
-    for (let i = 0; i < tracks.length; i++) {
+    var stream = videostream.srcObject;
+    var tracks = stream.getVideoTracks();
+    for (var i = 0; i < tracks.length; i++) {
         tracks[0].stop();
     }
     videostream.srcObject = null;
@@ -47,14 +57,14 @@ function stopCamera() {
 function takeCardSC() {
     if (image.src == '') {
         context.drawImage(videostream, 0, 0, canvas.width, canvas.height);
-        let url = canvas.toDataURL('image/jpeg', 1.0);
+        var url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
         console.log('about to call analyse');
     }
     else {
         image.removeAttribute("src");
         context.drawImage(videostream, 0, 0, canvas.width, canvas.height);
-        let url = canvas.toDataURL('image/jpeg', 1.0);
+        var url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
         console.log('about to call analyse');
     }
