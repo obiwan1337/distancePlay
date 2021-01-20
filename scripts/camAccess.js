@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 document.addEventListener('DOMContentLoaded', init);
-let video;
+let videostream;
 let image;
 let canvas;
 let context;
@@ -30,10 +30,10 @@ function init() {
     let remButton = document.getElementById("stop");
     addButton.addEventListener("click", addCam);
     remButton.addEventListener("click", stopCamera);
-    video = document.querySelector("#ownVideoElement");
+    videostream = document.querySelector("#ownVideoElement");
+    videostream.addEventListener("click", takeCardSC);
     image = document.querySelector("#shotOfCard");
     canvas = document.querySelector("#convertCanvas");
-    video.addEventListener("click", takeCardSC);
     context = canvas.getContext('2d');
 }
 function recognizeImage() {
@@ -51,9 +51,9 @@ function addCam() {
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia(constraints)
             .then(function (stream) {
-            video.srcObject = stream;
-            canvas.style.width = video.width.toString() + "px";
-            canvas.style.height = video.height.toString() + "px";
+            videostream.srcObject = stream;
+            canvas.style.width = videostream.width.toString() + "px";
+            canvas.style.height = videostream.height.toString() + "px";
         })
             .catch(function (err0r) {
             console.log("Something went wrong!");
@@ -61,16 +61,16 @@ function addCam() {
     }
 }
 function stopCamera() {
-    let stream = video.srcObject;
+    let stream = videostream.srcObject;
     let tracks = stream.getVideoTracks();
     for (let i = 0; i < tracks.length; i++) {
         tracks[0].stop();
     }
-    video.srcObject = null;
+    videostream.srcObject = null;
 }
 function takeCardSC() {
     if (image.src == '') {
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        context.drawImage(videostream, 0, 0, canvas.width, canvas.height);
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
         console.log('about to call analyse');
@@ -78,7 +78,7 @@ function takeCardSC() {
     }
     else {
         image.removeAttribute("src");
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        context.drawImage(videostream, 0, 0, canvas.width, canvas.height);
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
         console.log('about to call analyse');

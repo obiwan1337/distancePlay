@@ -1,17 +1,15 @@
+import tesseract from "tesseract.js"
 document.addEventListener('DOMContentLoaded', init);
-let video: HTMLVideoElement;
+let videostream: HTMLVideoElement;
 let image: HTMLImageElement;
 let canvas: HTMLCanvasElement;
 let context: CanvasRenderingContext2D;
-import tesseract from "tesseract.js"
+
 const { createWorker } = require('tesseract.js');
 const worker = createWorker();
 
-
-
 let ownCardList: { id: number, cardPictureLink: string, cardText: string }[] = [];
 let constraints = {
-
     video: {
         cursor: "never",
         width: 1280,
@@ -25,10 +23,11 @@ function init(): void {
     let remButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("stop");
     addButton.addEventListener("click", addCam);
     remButton.addEventListener("click", stopCamera);
-    video = document.querySelector("#ownVideoElement");
+    videostream = document.querySelector("#ownVideoElement");
+    videostream.addEventListener("click", takeCardSC);
     image = document.querySelector("#shotOfCard");
     canvas = document.querySelector("#convertCanvas");
-    video.addEventListener("click", takeCardSC);
+    
     context = canvas.getContext('2d');
 
 }
@@ -48,9 +47,9 @@ function addCam() {
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia(constraints)
             .then(function (stream) {
-                video.srcObject = stream;
-                canvas.style.width = video.width.toString() + "px";
-                canvas.style.height = video.height.toString() + "px";
+                videostream.srcObject = stream;
+                canvas.style.width = videostream.width.toString() + "px";
+                canvas.style.height = videostream.height.toString() + "px";
             }
 
             )
@@ -60,7 +59,7 @@ function addCam() {
     }
 }
 function stopCamera(): void {
-    let stream: MediaStream = <MediaStream>video.srcObject;
+    let stream: MediaStream = <MediaStream>videostream.srcObject;
     let tracks = stream.getVideoTracks();
 
     for (let i = 0; i < tracks.length; i++) {
@@ -68,11 +67,11 @@ function stopCamera(): void {
         tracks[0].stop();
     }
 
-    video.srcObject = null;
+    videostream.srcObject = null;
 }
 function takeCardSC(): void {
     if (image.src == '') {
-        context.drawImage(video, 0, 0, canvas.width, canvas.height)
+        context.drawImage(videostream, 0, 0, canvas.width, canvas.height)
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
         console.log('about to call analyse');
@@ -81,7 +80,7 @@ function takeCardSC(): void {
     }
     else {
         image.removeAttribute("src");
-        context.drawImage(video, 0, 0, canvas.width, canvas.height)
+        context.drawImage(videostream, 0, 0, canvas.width, canvas.height)
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
         console.log('about to call analyse');
