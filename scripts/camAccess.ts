@@ -32,6 +32,7 @@ function init(): void {
 }
 
 async function recognizeTxt(image: any) {
+    console.log("started function");
     Tesseract.recognize(image)
          .then(function(result) {
             ocrRes.innerText = result.text;
@@ -39,6 +40,7 @@ async function recognizeTxt(image: any) {
            ocrStat.innerText = result["status"] + " (" +
                         (result["progress"] * 100) + "%)";
         });
+        console.log("function end")
 }
 
 function addCam() {
