@@ -1,12 +1,10 @@
-
-
-
-
 document.addEventListener('DOMContentLoaded', init);
 let videostream: HTMLVideoElement;
 let image: HTMLImageElement;
 let canvas: HTMLCanvasElement;
 let context: CanvasRenderingContext2D;
+let ocrRes: any;
+let ocrStat: any ;
 let ownCardList: { id: number, cardPictureLink: string, cardText: string }[] = [];
 let constraints = {
     video: {
@@ -23,22 +21,22 @@ function init(): void {
     let remButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("stop");
     addButton.addEventListener("click", addCam);
     remButton.addEventListener("click", stopCamera);
-    videostream = document.querySelector("#ownVideoElement");
+    videostream = <HTMLVideoElement>document.querySelector("#ownVideoElement");
     videostream.addEventListener("click", takeCardSC);
-    image = document.querySelector("#shotOfCard");
-    canvas = document.querySelector("#convertCanvas");
-
-    context = canvas.getContext('2d');
+    image = <HTMLImageElement>document.querySelector("#shotOfCard");
+    canvas = <HTMLCanvasElement>document.querySelector("#convertCanvas");
+    ocrRes = document.getElementById("ocr_results");
+    ocrStat =  document.getElementById("ocr_status");
+    context = <CanvasRenderingContext2D>canvas.getContext('2d');
 
 }
-async function recognizeTxt(image) {
+
+async function recognizeTxt(image: any) {
     Tesseract.recognize(image)
          .then(function(result) {
-            document.getElementById("ocr_results")
-                    .innerText = result.text;
+            ocrRes.innerText = result.text;
          }).progress(function(result) {
-            document.getElementById("ocr_status")
-                    .innerText = result["status"] + " (" +
+           ocrStat.innerText = result["status"] + " (" +
                         (result["progress"] * 100) + "%)";
         });
 }
