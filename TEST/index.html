@@ -2,14 +2,32 @@
 <html>
 
 <head>
-<script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js' type="module" ></script>
+<script src='https://unpkg.com/tesseract.js@v2.1.3/dist/tesseract.min.js' type="module" ></script>
 
- 
-  <script src="ocrtest.js" type="text/javascript" charset="utf-8"></script>
-  <meta charset="utf-8">
-  <title>ocrtest</title>
 </head>
+<script>
+  const exampleImage = 'https://tesseract.projectnaptha.com/img/eng_bw.png';
 
+const worker = Tesseract.createWorker({
+  logger: m => console.log(m)
+});
+Tesseract.setLogging(true);
+work();
+
+async function work() {
+  await worker.load();
+  await worker.loadLanguage('eng');
+  await worker.initialize('eng');
+
+  let result = await worker.detect(exampleImage);
+  console.log(result.data);
+
+  result = await worker.recognize(exampleImage);
+  console.log(result.data);
+
+  await worker.terminate();
+}
+</script>
 <body>
  
 </body>
