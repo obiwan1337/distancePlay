@@ -1,4 +1,12 @@
 import Tesseract from "tesseract.js";
+import { createWorker } from 'tesseract.js';
+
+const worker = createWorker({
+  logger: (m) => console.log(m),
+});
+
+
+
 
 document.addEventListener('DOMContentLoaded', init);
 let videostream: HTMLVideoElement;
@@ -30,14 +38,14 @@ function init(): void {
 
 }
 async function recognizeTxt() {
-    Tesseract
-    .recognize(image.src)
-    .progress(console.log)
-    .then((res: any) => {
-        console.log(res);
-    })
-    .catch(console.error);
-    
+    (async () => {
+        await worker.load();
+        await worker.loadLanguage('eng');
+        await worker.initialize('eng');
+        const { data: { text } } = await worker.recognize(image.src);
+        console.log(text);
+        await worker.terminate();
+      })();
 }
 
 function addCam() {
