@@ -1,9 +1,3 @@
-import Tesseract from "tesseract.js";
-import { createWorker } from 'tesseract.js';
-
-const worker = createWorker({
-  logger: (m) => console.log(m),
-});
 
 
 
@@ -37,15 +31,16 @@ function init(): void {
     context = canvas.getContext('2d');
 
 }
-async function recognizeTxt() {
-    (async () => {
-        await worker.load();
-        await worker.loadLanguage('eng');
-        await worker.initialize('eng');
-        const { data: { text } } = await worker.recognize(image.src);
-        console.log(text);
-        await worker.terminate();
-      })();
+async function recognizeTxt(image) {
+    Tesseract.recognize(image)
+         .then(function(result) {
+            document.getElementById("ocr_results")
+                    .innerText = result.text;
+         }).progress(function(result) {
+            document.getElementById("ocr_status")
+                    .innerText = result["status"] + " (" +
+                        (result["progress"] * 100) + "%)";
+        });
 }
 
 function addCam() {
@@ -89,6 +84,6 @@ function takeCardSC(): void {
         let url = canvas.toDataURL('image/jpeg', 1.0);
         image.src = url;
         console.log('about to call analyse else');
-        recognizeTxt();
+        recognizeTxt(image.src);
     }
 }
