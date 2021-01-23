@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -40,12 +39,12 @@ function init() {
 function recognizeTxt(image) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log("started function");
-        Tesseract.recognize(image)
-            .then(function (result) {
-            ocrRes.innerText = result.text;
-        }).progress(function (result) {
-            ocrStat.innerText = result["status"] + " (" +
-                (result["progress"] * 100) + "%)";
+        Tesseract.recognize('img/oko.png', // @ts-ignore
+        'eng', {
+            logger: m => console.log(m)
+        }).then(({ // @ts-ignore
+        data: { text } }) => {
+            console.log(text);
         });
         console.log("function end");
     });

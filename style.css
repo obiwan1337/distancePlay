@@ -31,3 +31,7 @@ body {
     z-index: 1000;
     overflow: hidden;
 }
+#ocr_result {
+    border: red;
+    border-radius: 1px;
+}

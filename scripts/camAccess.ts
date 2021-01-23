@@ -4,19 +4,20 @@ let image: HTMLImageElement;
 let canvas: HTMLCanvasElement;
 let context: CanvasRenderingContext2D;
 let ocrRes: any;
-let ocrStat: any ;
+let ocrStat: any;
 let ownCardList: { id: number, cardPictureLink: string, cardText: string }[] = [];
 let constraints = {
     video: {
         cursor: "never",
-        width: 1280,
-        height: 720,
-        frameRate: 15,
+        facingMode:'environment',
+        width: 480,
+        height: 360,
+        frameRate: 30,
     }
 
 }
 function init(): void {
-    
+
     let addButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("add");
     let remButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("stop");
     addButton.addEventListener("click", addCam);
@@ -26,21 +27,26 @@ function init(): void {
     image = <HTMLImageElement>document.querySelector("#shotOfCard");
     canvas = <HTMLCanvasElement>document.querySelector("#convertCanvas");
     ocrRes = document.getElementById("ocr_results");
-    ocrStat =  document.getElementById("ocr_status");
+    ocrStat = document.getElementById("ocr_status");
     context = <CanvasRenderingContext2D>canvas.getContext('2d');
 
 }
 
-async function recognizeTxt(image: any) {
+async function recognizeTxt(i: any) {
     console.log("started function");
-    Tesseract.recognize(image)
-         .then(function(result) {
-            ocrRes.innerText = result.text;
-         }).progress(function(result) {
-           ocrStat.innerText = result["status"] + " (" +
-                        (result["progress"] * 100) + "%)";
-        });
-        console.log("function end")
+    Tesseract.recognize(
+        i,// @ts-ignore
+        'eng', { 
+        logger: m => console.log(m)
+    }
+    ).then(({// @ts-ignore
+        data: {
+            text
+        }
+    }) => {
+        console.log(text);
+    })
+    console.log("function end")
 }
 
 function addCam() {
@@ -72,18 +78,15 @@ function stopCamera(): void {
 function takeCardSC(): void {
     if (image.src == '') {
         context.drawImage(videostream, 0, 0, canvas.width, canvas.height)
-        let url = canvas.toDataURL('image/jpeg', 1.0);
+        let url = canvas.toDataURL('image/png');
         image.src = url;
-        console.log('about to call analyse');
-        
-
+        recognizeTxt(url); 
     }
     else {
         image.removeAttribute("src");
         context.drawImage(videostream, 0, 0, canvas.width, canvas.height)
-        let url = canvas.toDataURL('image/jpeg', 1.0);
+        let url = canvas.toDataURL('image/png');
         image.src = url;
-        console.log('about to call analyse else');
-        recognizeTxt(image.src);
+        recognizeTxt(url);
     }
 }
