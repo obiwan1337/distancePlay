@@ -18,9 +18,9 @@ let ownCardList = [];
 let constraints = {
     video: {
         cursor: "never",
-        width: 1280,
-        height: 720,
-        frameRate: 15,
+        width: 720,
+        height: 480,
+        frameRate: 30,
     }
 };
 function init() {
@@ -36,10 +36,10 @@ function init() {
     ocrStat = document.getElementById("ocr_status");
     context = canvas.getContext('2d');
 }
-function recognizeTxt(image) {
+function recognizeTxt(i) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log("started function");
-        Tesseract.recognize('img/oko.png', // @ts-ignore
+        Tesseract.recognize(i, // @ts-ignore
         'eng', {
             logger: m => console.log(m)
         }).then(({ // @ts-ignore
@@ -73,17 +73,16 @@ function stopCamera() {
 function takeCardSC() {
     if (image.src == '') {
         context.drawImage(videostream, 0, 0, canvas.width, canvas.height);
-        let url = canvas.toDataURL('image/jpeg', 1.0);
+        let url = canvas.toDataURL('image/png');
         image.src = url;
-        console.log('about to call analyse');
+        recognizeTxt(url);
     }
     else {
         image.removeAttribute("src");
         context.drawImage(videostream, 0, 0, canvas.width, canvas.height);
-        let url = canvas.toDataURL('image/jpeg', 1.0);
+        let url = canvas.toDataURL('image/png');
         image.src = url;
-        console.log('about to call analyse else');
-        recognizeTxt(image.src);
+        recognizeTxt(url);
     }
 }
 //# sourceMappingURL=camAccess.js.map

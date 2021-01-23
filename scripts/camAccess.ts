@@ -9,9 +9,9 @@ let ownCardList: { id: number, cardPictureLink: string, cardText: string }[] = [
 let constraints = {
     video: {
         cursor: "never",
-        facingMode:'environment',
-        width: 480,
-        height: 360,
+        
+        width: 720,
+        height: 480,
         frameRate: 30,
     }
 
