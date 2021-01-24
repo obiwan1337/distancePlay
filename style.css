@@ -1,24 +1,5 @@
 body {
     background-color: rgb(255, 255, 255);
-
-}
-
-#add {
-    background-color: greenyellow;
-}
-
-#stop {
-
-    background-color: red;
-}
-
-#shotOfCard {
-    
-    position: sticky;
-    margin-left: 0%;
-    border: deeppink;
-    border-style: dotted;
-    border-radius: 1px;
 }
 
 #ownVideoElement {
@@ -35,15 +16,25 @@ body {
     overflow: hidden;
 }
 
-#ocr_result {
-    border: red;
-    border-radius: 1px;
-    border-style: dashed;
-    float:right;
+#ocr_result_p {
+
+    overflow: scroll;
+
 }
-#ocr_status {
-    border: skyblue;
+
+#ocr_status_p {
+    width: auto;
+
+
+}
+
+#result {
+
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    border: dodgerblue;
     border-radius: 1px;
-    border-style: dashed;
-    float:right;
+    border-style: dotted;
+
 }

@@ -23,14 +23,13 @@ function init() {
     videostream = document.querySelector("#ownVideoElement");
     videostream.addEventListener("click", takeCardSC);
     canvas = document.querySelector("#convertCanvas");
-    ocrRes = document.querySelector("#ocr_result");
-    ocrStat = document.querySelector("#ocr_status");
+    ocrRes = document.querySelector("#ocr_result_p");
+    ocrStat = document.querySelector("#ocr_status_p");
     context = canvas.getContext('2d');
     addCam();
 }
 function recognizeTxt(i) {
     return __awaiter(this, void 0, void 0, function* () {
-        ocrStat.innerText = '';
         ocrStat.innerText = "Please wait. Your image is being processed.";
         Tesseract.recognize('./TEST/img/lotus.png', // @ts-ignore
         'eng', {
@@ -40,7 +39,6 @@ function recognizeTxt(i) {
             ocrRes.innerText = text;
         });
         console.log("function end");
-        ocrStat.innerText = '';
     });
 }
 function addCam() {

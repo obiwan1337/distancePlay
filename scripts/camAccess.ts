@@ -16,14 +16,14 @@ function init(): void {
     videostream = <HTMLVideoElement>document.querySelector("#ownVideoElement");
     videostream.addEventListener("click", takeCardSC);
     canvas = <HTMLCanvasElement>document.querySelector("#convertCanvas");
-    ocrRes = document.querySelector("#ocr_result");
-    ocrStat = document.querySelector("#ocr_status");
+    ocrRes = document.querySelector("#ocr_result_p");
+    ocrStat = document.querySelector("#ocr_status_p");
     context = <CanvasRenderingContext2D>canvas.getContext('2d');
     addCam();
 }
 
 async function recognizeTxt(i: any) {
-    ocrStat.innerText = '';
+    
     ocrStat.innerText = "Please wait. Your image is being processed.";
     Tesseract.recognize(
         './TEST/img/lotus.png',// @ts-ignore
@@ -38,7 +38,7 @@ async function recognizeTxt(i: any) {
         ocrRes.innerText = text;
     })
     console.log("function end");
-    ocrStat.innerText = '';
+    
 }
 
 function addCam() {
