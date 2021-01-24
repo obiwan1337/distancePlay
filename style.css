@@ -39,9 +39,11 @@ body {
     border: red;
     border-radius: 1px;
     border-style: dashed;
+    float:right;
 }
 #ocr_status {
     border: skyblue;
     border-radius: 1px;
     border-style: dashed;
+    float:right;
 }
