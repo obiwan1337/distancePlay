@@ -22,10 +22,6 @@ let constraints = {
     }
 };
 function init() {
-    let addButton = document.getElementById("add");
-    let remButton = document.getElementById("stop");
-    addButton.addEventListener("click", addCam);
-    remButton.addEventListener("click", stopCamera);
     videostream = document.querySelector("#ownVideoElement");
     videostream.addEventListener("click", takeCardSC);
     image = document.querySelector("#shotOfCard");

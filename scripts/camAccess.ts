@@ -16,10 +16,7 @@ let constraints = {
 }
 function init(): void {
 
-    let addButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("add");
-    let remButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("stop");
-    addButton.addEventListener("click", addCam);
-    remButton.addEventListener("click", stopCamera);
+   
     videostream = <HTMLVideoElement>document.querySelector("#ownVideoElement");
     videostream.addEventListener("click", takeCardSC);
     image = <HTMLImageElement>document.querySelector("#shotOfCard");
