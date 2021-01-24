@@ -5,14 +5,12 @@ let canvas: HTMLCanvasElement;
 let context: CanvasRenderingContext2D;
 let ocrRes: any;
 let ocrStat: any;
-let ownCardList: { id: number, cardPictureLink: string, cardText: string }[] = [];
 let constraints = {
     video: {
-        cursor: "never",
+        cursor: "never", 
+        width: 1280,
+        height: 720,
         
-        width: 720,
-        height: 480,
-        frameRate: 30,
     }
 
 }
@@ -44,7 +42,7 @@ async function recognizeTxt(i: any) {
             text
         }
     }) => {
-        console.log(text);
+        ocrRes.innertext(text);
     })
     console.log("function end")
 }

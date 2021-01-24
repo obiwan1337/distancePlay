@@ -14,13 +14,11 @@ let canvas;
 let context;
 let ocrRes;
 let ocrStat;
-let ownCardList = [];
 let constraints = {
     video: {
         cursor: "never",
-        width: 720,
-        height: 480,
-        frameRate: 30,
+        width: 1280,
+        height: 720,
     }
 };
 function init() {
@@ -44,7 +42,7 @@ function recognizeTxt(i) {
             logger: m => console.log(m)
         }).then(({ // @ts-ignore
         data: { text } }) => {
-            console.log(text);
+            ocrRes.innertext(text);
         });
         console.log("function end");
     });

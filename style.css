@@ -11,26 +11,31 @@ body {
 
     background-color: red;
 }
-#shotOfCard{
-   position: sticky;
-   margin-left: 0%;
-   border:deeppink;
-   border-style: dotted;
-   border-radius: 1px;
+
+#shotOfCard {
+    height: 720px;
+    width: 1280px;
+    position: sticky;
+    margin-left: 0%;
+    border: deeppink;
+    border-style: dotted;
+    border-radius: 1px;
 }
 
 #ownVideoElement {
-   
+
     z-index: 1;
     margin-right: 1%;
     margin-bottom: 5%;
 }
+
 #convertCanvas {
     visibility: hidden;
     position: fixed;
     z-index: 1000;
     overflow: hidden;
 }
+
 #ocr_result {
     border: red;
     border-radius: 1px;
