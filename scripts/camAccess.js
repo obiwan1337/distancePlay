@@ -9,7 +9,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 document.addEventListener('DOMContentLoaded', init);
 let videostream;
-let image;
 let canvas;
 let context;
 let ocrRes;
@@ -17,14 +16,12 @@ let ocrStat;
 let constraints = {
     video: {
         cursor: "never",
-        width: 1280,
-        height: 720,
+        width: 640,
     }
 };
 function init() {
     videostream = document.querySelector("#ownVideoElement");
     videostream.addEventListener("click", takeCardSC);
-    image = document.querySelector("#shotOfCard");
     canvas = document.querySelector("#convertCanvas");
     ocrRes = document.querySelector("#ocr_result");
     ocrStat = document.querySelector("#ocr_status");
@@ -34,7 +31,7 @@ function init() {
 function recognizeTxt(i) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log("started function");
-        Tesseract.recognize('/TEST/img/nexus.png', // @ts-ignore
+        Tesseract.recognize('./TEST/img/lotus.png', // @ts-ignore
         'eng', {
             logger: m => console.log(m)
         }).then(({ // @ts-ignore
@@ -66,19 +63,10 @@ function stopCamera() {
     videostream.srcObject = null;
 }
 function takeCardSC() {
-    if (image.src == '') {
-        context.drawImage(videostream, 0, 0, canvas.width, canvas.height);
-        let url = canvas.toDataURL('image/png');
-        clearout();
-        recognizeTxt(url);
-    }
-    else {
-        image.removeAttribute("src");
-        context.drawImage(videostream, 0, 0, canvas.width, canvas.height);
-        let url = canvas.toDataURL('image/png');
-        clearout();
-        recognizeTxt(url);
-    }
+    context.drawImage(videostream, 0, 0, canvas.width, canvas.height);
+    let url = canvas.toDataURL('image/png');
+    clearout();
+    recognizeTxt(url);
 }
 function clearout() {
 }

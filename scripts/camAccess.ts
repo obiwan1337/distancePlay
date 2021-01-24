@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', init);
 let videostream: HTMLVideoElement;
-let image: HTMLImageElement;
+
 let canvas: HTMLCanvasElement;
 let context: CanvasRenderingContext2D;
 let ocrRes: HTMLDivElement;
@@ -8,18 +8,13 @@ let ocrStat: HTMLDivElement;
 let constraints = {
     video: {
         cursor: "never",
-        width: 1280,
-        height: 720,
-
+        width: 640,
     }
 
 }
 function init(): void {
-
-   
     videostream = <HTMLVideoElement>document.querySelector("#ownVideoElement");
     videostream.addEventListener("click", takeCardSC);
-    image = <HTMLImageElement>document.querySelector("#shotOfCard");
     canvas = <HTMLCanvasElement>document.querySelector("#convertCanvas");
     ocrRes = document.querySelector("#ocr_result");
     ocrStat = document.querySelector("#ocr_status");
@@ -30,7 +25,7 @@ function init(): void {
 async function recognizeTxt(i: any) {
     console.log("started function");
     Tesseract.recognize(
-        '/TEST/img/nexus.png',// @ts-ignore
+        './TEST/img/lotus.png',// @ts-ignore
         'eng', {
         logger: m => console.log(m)
     }
@@ -70,19 +65,12 @@ function stopCamera(): void {
     videostream.srcObject = null;
 }
 function takeCardSC(): void {
-    if (image.src == '') {
-        context.drawImage(videostream, 0, 0, canvas.width, canvas.height)
-        let url = canvas.toDataURL('image/png');
-        clearout();
-        recognizeTxt(url);
-    }
-    else {
-        image.removeAttribute("src");
-        context.drawImage(videostream, 0, 0, canvas.width, canvas.height)
-        let url = canvas.toDataURL('image/png');
-        clearout();
-        recognizeTxt(url);
-    }
+
+    context.drawImage(videostream, 0, 0, canvas.width, canvas.height)
+    let url = canvas.toDataURL('image/png');
+    clearout();
+    recognizeTxt(url);
+
 }
 function clearout() {
 
