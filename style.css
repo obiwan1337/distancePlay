@@ -13,8 +13,7 @@ body {
 }
 
 #shotOfCard {
-    height: 720px;
-    width: 1280px;
+    
     position: sticky;
     margin-left: 0%;
     border: deeppink;
@@ -39,4 +38,10 @@ body {
 #ocr_result {
     border: red;
     border-radius: 1px;
+    border-style: dashed;
+}
+#ocr_status {
+    border: skyblue;
+    border-radius: 1px;
+    border-style: dashed;
 }

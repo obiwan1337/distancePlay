@@ -3,14 +3,14 @@ let videostream: HTMLVideoElement;
 let image: HTMLImageElement;
 let canvas: HTMLCanvasElement;
 let context: CanvasRenderingContext2D;
-let ocrRes: any;
-let ocrStat: any;
+let ocrRes: HTMLDivElement;
+let ocrStat: HTMLDivElement;
 let constraints = {
     video: {
-        cursor: "never", 
+        cursor: "never",
         width: 1280,
         height: 720,
-        
+
     }
 
 }
@@ -24,17 +24,17 @@ function init(): void {
     videostream.addEventListener("click", takeCardSC);
     image = <HTMLImageElement>document.querySelector("#shotOfCard");
     canvas = <HTMLCanvasElement>document.querySelector("#convertCanvas");
-    ocrRes = document.getElementById("ocr_results");
-    ocrStat = document.getElementById("ocr_status");
+    ocrRes = document.querySelector("#ocr_result");
+    ocrStat = document.querySelector("#ocr_status");
     context = <CanvasRenderingContext2D>canvas.getContext('2d');
-
+    addCam();
 }
 
 async function recognizeTxt(i: any) {
     console.log("started function");
     Tesseract.recognize(
-        i,// @ts-ignore
-        'eng', { 
+        '/TEST/img/nexus.png',// @ts-ignore
+        'eng', {
         logger: m => console.log(m)
     }
     ).then(({// @ts-ignore
@@ -42,7 +42,7 @@ async function recognizeTxt(i: any) {
             text
         }
     }) => {
-        ocrRes.innertext(text);
+        ocrRes.innerText = text;
     })
     console.log("function end")
 }
@@ -55,7 +55,6 @@ function addCam() {
                 canvas.style.width = videostream.width.toString() + "px";
                 canvas.style.height = videostream.height.toString() + "px";
             }
-
             )
             .catch(function (err0r) {
                 console.log("Something went wrong!");
@@ -77,14 +76,18 @@ function takeCardSC(): void {
     if (image.src == '') {
         context.drawImage(videostream, 0, 0, canvas.width, canvas.height)
         let url = canvas.toDataURL('image/png');
-        image.src = url;
-        recognizeTxt(url); 
+        clearout();
+        recognizeTxt(url);
     }
     else {
         image.removeAttribute("src");
         context.drawImage(videostream, 0, 0, canvas.width, canvas.height)
         let url = canvas.toDataURL('image/png');
-        image.src = url;
+        clearout();
         recognizeTxt(url);
     }
+}
+function clearout() {
+
+
 }

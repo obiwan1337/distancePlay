@@ -30,19 +30,20 @@ function init() {
     videostream.addEventListener("click", takeCardSC);
     image = document.querySelector("#shotOfCard");
     canvas = document.querySelector("#convertCanvas");
-    ocrRes = document.getElementById("ocr_results");
-    ocrStat = document.getElementById("ocr_status");
+    ocrRes = document.querySelector("#ocr_result");
+    ocrStat = document.querySelector("#ocr_status");
     context = canvas.getContext('2d');
+    addCam();
 }
 function recognizeTxt(i) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log("started function");
-        Tesseract.recognize(i, // @ts-ignore
+        Tesseract.recognize('/TEST/img/nexus.png', // @ts-ignore
         'eng', {
             logger: m => console.log(m)
         }).then(({ // @ts-ignore
         data: { text } }) => {
-            ocrRes.innertext(text);
+            ocrRes.innerText = text;
         });
         console.log("function end");
     });
@@ -72,15 +73,17 @@ function takeCardSC() {
     if (image.src == '') {
         context.drawImage(videostream, 0, 0, canvas.width, canvas.height);
         let url = canvas.toDataURL('image/png');
-        image.src = url;
+        clearout();
         recognizeTxt(url);
     }
     else {
         image.removeAttribute("src");
         context.drawImage(videostream, 0, 0, canvas.width, canvas.height);
         let url = canvas.toDataURL('image/png');
-        image.src = url;
+        clearout();
         recognizeTxt(url);
     }
+}
+function clearout() {
 }
 //# sourceMappingURL=camAccess.js.map
