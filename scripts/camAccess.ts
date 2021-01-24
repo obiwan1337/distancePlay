@@ -23,7 +23,8 @@ function init(): void {
 }
 
 async function recognizeTxt(i: any) {
-    console.log("started function");
+    ocrStat.innerText = '';
+    ocrStat.innerText = "Please wait. Your image is being processed.";
     Tesseract.recognize(
         './TEST/img/lotus.png',// @ts-ignore
         'eng', {
@@ -36,7 +37,8 @@ async function recognizeTxt(i: any) {
     }) => {
         ocrRes.innerText = text;
     })
-    console.log("function end")
+    console.log("function end");
+    ocrStat.innerText = '';
 }
 
 function addCam() {
