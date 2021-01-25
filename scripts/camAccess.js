@@ -31,7 +31,7 @@ function init() {
 function recognizeTxt(i) {
     return __awaiter(this, void 0, void 0, function* () {
         ocrStat.innerText = "Please wait. Your image is being processed.";
-        Tesseract.recognize('./TEST/img/lotus.png', // @ts-ignore
+        Tesseract.recognize(i, // @ts-ignore
         'eng', {
             logger: m => console.log(m)
         }).then(({ // @ts-ignore

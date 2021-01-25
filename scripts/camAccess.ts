@@ -7,8 +7,18 @@ let ocrRes: HTMLDivElement;
 let ocrStat: HTMLDivElement;
 let constraints = {
     video: {
-        cursor: "never",
-        width: 640,
+        width: {
+            min: 1280,
+            ideal: 1920,
+            max: 2560,
+        },
+        height: {
+            min: 720,
+            ideal: 1080,
+            max: 1440
+        },
+        facingMode: 'user',
+        cursor: 'never',
     }
 
 }
@@ -23,10 +33,10 @@ function init(): void {
 }
 
 async function recognizeTxt(i: any) {
-    
+
     ocrStat.innerText = "Please wait. Your image is being processed.";
     Tesseract.recognize(
-        './TEST/img/lotus.png',// @ts-ignore
+        i,// @ts-ignore
         'eng', {
         logger: m => console.log(m)
     }
@@ -38,7 +48,7 @@ async function recognizeTxt(i: any) {
         ocrRes.innerText = text;
     })
     console.log("function end");
-    
+
 }
 
 function addCam() {
